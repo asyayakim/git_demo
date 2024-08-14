@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+</head>
+
+<body>
+    <div id="App">
+        <script>
+            function showWithoutAnswer() {
+                document.getElementById('App').innerHTML = /*HTML*/`
+                <div> Hva er 2+2?</div>           
+                <button onclick="showCorrectAnswer3()">3</button><br/>
+                <button onclick="showCorrectAnswer4()">4</button><br/>
+                <button onclick="showCorrectAnswer5()">5</button><br/>
+                <button onclick="restart()">Restart</button><br/>
+            `;
+            }
+            function showCorrectAnswer3() {
+                document.getElementById('App').innerHTML = /*HTML*/`
+                <div> Hva er 2+2?</div>           
+                <button onclick="showWithoutAnswer()">3</button> Feil! <br/>
+                <button>4</button><br/>
+                <button>5</button><br/>
+                <button onclick="restart()">Restart</button><br/>
+            `;
+            }
+            function showCorrectAnswer4() {
+                document.getElementById('App').innerHTML = /*HTML*/`
+                <div> Hva er 2+2?</div>           
+                <button>3</button><br/>
+                <button>4</button> Riktig! <br/>
+                <button>5</button><br/>
+                <button onclick="restart()">Restart</button><br/>
+            `;
+            }
+            function showCorrectAnswer5() {
+                document.getElementById('App').innerHTML = /*HTML*/`
+                <div> Hva er 2+2?</div>           
+                <button>3</button><br/>
+                <button>4</button><br/>
+                <button onclick="showWithoutAnswer()">5</button> Feil! <br/>
+                <button onclick="restart()">Restart</button><br/>
+            `;
+            }
+            function restart() {
+                showWithoutAnswer();
+            }
+            showWithoutAnswer();
+        </script>
+
+
+
+</body>
+
+</html>
+
