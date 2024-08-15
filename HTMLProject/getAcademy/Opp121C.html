@@ -10,34 +10,56 @@
 <body>
     <div id="basicContainer"></div>
     <script>
-        //make javascropt
-        function makeBetter() {
-            document.getElementById('basicContainer').innerHTML = /*HTML*/`
-            <label for="fname">First name:</label><br/>
-            <input type="text" id="fname"><br/>
-            <label for="lname">Last name:</label><br/>
-            <input type="text" id="lname"><br/>
-            <label for="zero2hundred">En til hundre:</label><br/>
-            <input type="range" min="1" max="100" step="1" id="zero2hundred"><br/>
-            <label for="number">Skriv inn et tall:</label><br/>
-            <input type="number" id="number"><br/>
-            <input type="radio" id="html" name="fav_language">
-            <label for="html">HTML</label><br/>
-            <input type="radio" id="css" name="fav_language">
-            <label for="css">CSS</label><br>
-            <input type="radio" id="javascript" name="fav_language">
-            <label for="javascript">JavaScript</label><br/>
-            <input type="checkbox" id="vehicle1">
-            <label for="vehicle1"> I have a bike</label><br/>
-            <input type="checkbox" id="vehicle2">
-            <label for="vehicle2"> I have a car</label><br/>
-            <input type="checkbox" id="vehicle3">
-            <label for="vehicle3"> I have a boat</label><br/>
+      mainFunction();
 
-            `;
-        }
-        makeBetter();
+      function mainFunction() {
+        addSectionOne();
+        addSectionTwo();
+        addSectionThree();
+        addSectionFour();
+      }
+
+      function addSectionOne() {
+        addInputLabel("First name:", "text", "fname");
+        addInputLabel("Last name:", "text", "lname");
+      }
+
+      function addSectionTwo() {
+        addInputLabel("En til hundre:", "range", "zero2hundred", 'min="1" max="100" step="1"');
+        addInputLabel("Skriv inn et tall:", "number", "number");
+      }
+
+      function addSectionThree() {
+        addRadioInput("HTML", "html", "fav_language");
+        addRadioInput("CSS", "css", "fav_language");
+        addRadioInput("JavaScript", "javascript", "fav_language");
+      }
+
+      function addSectionFour() {
+        addCheckboxInput("I have a bike", "vehicle1");
+        addCheckboxInput("I have a car", "vehicle2");
+        addCheckboxInput("I have a boat", "vehicle3");
+      }
+
+      function addInputLabel(labelText, inputType, inputId, attributes = "") {
+        document.getElementById("basicContainer").innerHTML += `
+          <label for="${inputId}">${labelText}</label><br/>
+          <input type="${inputType}" id="${inputId}" ${attributes}><br/>
+        `;
+      }
+
+      function addRadioInput(labelText, inputId, groupName) {
+        document.getElementById("basicContainer").innerHTML += `
+          <input type="radio" id="${inputId}" name="${groupName}">
+          <label for="${inputId}">${labelText}</label><br/>
+        `;
+      }
+
+      function addCheckboxInput(labelText, inputId) {
+        document.getElementById("basicContainer").innerHTML += `
+          <input type="checkbox" id="${inputId}">
+          <label for="${inputId}">${labelText}</label><br/>
+        `;
+      }
     </script>
 </body>
-
-</html>
