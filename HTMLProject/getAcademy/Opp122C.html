@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave122C</title>
+    <style>
+        #textSize {
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div id="textSize"> Something important</div>
+    <button onclick="changeFontSize(6)">Make text bigger</button>
+    <button onclick="changeFontSize(-6)">Make text smaller</button>
+    <script>
+        let currentFontSize = 40;
+        function changeFontSize(size) {
+            currentFontSize += size;
+            document.getElementById('textSize').style.fontSize = `${currentFontSize}px`;
+        }
+    </script>
+    
+</body>
+</html>
