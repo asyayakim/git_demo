@@ -1,21 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+           
+        }
         #textSize {
             font-size: 40px;
+            display: inline-block;
+            background-color: rgb(125, 125, 125);
+            text-align: center;
+            margin-bottom: 10px;
+            padding: 20px;
+
         }
-        .label {
-            display: grid;
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
         }
+        select, label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+    
+
+
     </style>
 </head>
+
 <body>
     <div id="textSize"> Select font</div>
-    <button onclick="changeFontSize(6)">Make text bigger</button>
-    <button onclick="changeFontSize(-6)">Make text smaller</button>
+    <button onclick="changeFontSize(6)">Make text +</button>
+    <button onclick="changeFontSize(-6)">Make text -</button>
     <label for="fontSelect">Choose a font:</label>
     <select onchange="selectFontFamily(this.value)">
         <option>Arial</option>
@@ -29,8 +55,40 @@
         <option>Brush Script MT</option>
     </select>
 
+    <div class="color">
+        <button onclick="changeColor('red', 5)"> + Red</button>
+        <button onclick="changeColor('red', -5)"> - Red</button>
+    </div>
+    <div class="color">
+        <button onclick="changeColor('green', 5)"> + Green</button>
+        <button onclick="changeColor('green', -5)"> - Green</button>
+    </div>
+    <div class="color">
+        <button onclick="changeColor('blue', 5)">+ Blue</button>
+        <button onclick="changeColor('blue', -5)">- Blue</button>
+    </div>
+
+
     <script>
-        function selectFontFamily(fontFamily){
+        let redValue = 125;
+        let greenValue = 125;
+        let blueValue = 125;
+
+        function changeColor(color, amount) {
+            if (color === 'red') {
+                redValue = Math.min(255, Math.max(0, redValue + amount));
+            } else if (color === 'green') {
+                greenValue = Math.min(255, Math.max(0, greenValue + amount));
+            } else if (color === 'blue') {
+                blueValue = Math.min(255, Math.max(0, blueValue + amount));
+            }
+
+            document.getElementById('textSize').style.backgroundColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+        }
+
+
+
+        function selectFontFamily(fontFamily) {
             document.getElementById('textSize').style.fontFamily = fontFamily;
             document.getElementById('textSize').innerHTML = `Du har valgt ${fontFamily}.`;
         }
@@ -39,6 +97,11 @@
             currentFontSize += size;
             document.getElementById('textSize').style.fontSize = `${currentFontSize}px`;
         }
+        document.getElementById('textSize').style.backgroundColor = `rgb(${redValue},${greenValue},${blueValue})`;
+
+
+
     </script>
 </body>
+
 </html>
