@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #textSize {
+            font-size: 40px;
+        }
+        .label {
+            display: grid;
+        }
+    </style>
+</head>
+<body>
+    <div id="textSize"> Select font</div>
+    <button onclick="changeFontSize(6)">Make text bigger</button>
+    <button onclick="changeFontSize(-6)">Make text smaller</button>
+    <label for="fontSelect">Choose a font:</label>
+    <select onchange="selectFontFamily(this.value)">
+        <option>Arial</option>
+        <option>Verdana</option>
+        <option>Tahoma</option>
+        <option>Trebuchet MS</option>
+        <option>Times New Roman</option>
+        <option>Georgia</option>
+        <option>Garamond</option>
+        <option>Courier New</option>
+        <option>Brush Script MT</option>
+    </select>
+
+    <script>
+        function selectFontFamily(fontFamily){
+            document.getElementById('textSize').style.fontFamily = fontFamily;
+            document.getElementById('textSize').innerHTML = `Du har valgt ${fontFamily}.`;
+        }
+        let currentFontSize = 40;
+        function changeFontSize(size) {
+            currentFontSize += size;
+            document.getElementById('textSize').style.fontSize = `${currentFontSize}px`;
+        }
+    </script>
+</body>
+</html>
