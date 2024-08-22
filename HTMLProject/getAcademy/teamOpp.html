@@ -1,165 +1,102 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        #board {
-            display: grid;
-            grid-template-columns: repeat(4, 200px);
-            grid-template-rows: repeat(4, 200px);
-        }
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Memory Game</title>
+        <style>
+                #board {
+                        display: grid;
+                        grid-template-columns: repeat(2, 200px);
+                        grid-template-rows: repeat(2, 200px);
+                }
 
-        #board>div {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid gray;
-            background-color: darkgray;
-        }
+                #board>div {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border: 1px solid gray;
+                        background-color: darkgray;
+                }
 
-        img {
-            width: 100%;
-        }
-
-        .img-hidden {
-            display: none;
-        }
-
-        .img-show {
-            display: block;
-        }
-
-        board:hover {
-            background-color: lightcoral;
-        }
-    </style>
+                img {
+                        width: 100%;
+                }
+        </style>
 </head>
 
 <body>
-    <div id="board">
-        <div id="dog1" onclick="showCardDog1()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/dog.jpg" /></div>
-        <div id="frog1" onclick="showCardFrog1()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/frog.jpg" /></div>
-        <div id="horse1" onclick="showCardHorse1()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/horse.jpg" /></div>
-        <div id="chicken1" onclick="showCardChicken1()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/chicken.jpg" /></div>
-        <div id="spider1" onclick="showCardSpider1()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/spider.jpg" /></div>
-        <div id="frog2" onclick="showCardFrog2()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/frog.jpg" /></div>
-        <div id="spider2" onclick="showCardSpider2()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/spider.jpg" /></div>
-        <div id="tiger1" onclick="showCardTiger1()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/tiger.jpg" /></div>
-        <div id="chicken2" onclick="showCardChicken2()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/chicken.jpg" /></div>
-        <div id="dog2" onclick="showCardDog2()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/dog.jpg" /></div>
-        <div id="elephant1" onclick="showCardElephant1()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/elephant.jpg" /></div>
-        <div id="cat1" onclick="showCardCat1()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/cat.gif" /></div>
-        <div id="cat2" onclick="showCardCat2()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/cat.gif" /></div>
-        <div id="elephant2" onclick="showCardElephant2()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/elephant.jpg" /></div>
-        <div id="horse2" onclick="showCardHorse2()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/horse.jpg" /></div>
-        <div id="tiger2" onclick="showCardTiger2()"><img class="img-hidden"
-                src="https://getacademy.github.io/PictureLottox/img/tiger.jpg" /></div>
+        <div id="board"></div>
 
-    </div>
-    <script>
+        <script>
+                function show0() {
+                        document.getElementById('board').innerHTML = /*HTML*/`
+                <div onclick="showDog1()"></div>
+                <div onclick="showFrog1()"></div>
+                <div onclick="showDog2()"></div>
+                <div onclick="showFrog2()"></div>
+            `;
+                }
 
-        function showCardDog1() {
-            document.getElementById('dog1').innerHTML = /* HTML*/ `
-    <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/dog.jpg" />
-    `;
-        }
+                function showDog1() {
+                        document.getElementById('board').innerHTML = /*HTML*/`
+                <div><img src="https://getacademy.github.io/PictureLottox/img/dog.jpg"/></div>
+                <div onclick="showFrog1()"></div>
+                <div onclick="showDogMatch()"></div>
+                <div onclick="showFrog2()"></div>
+            `;
+                }
 
-        function showCardFrog1() {
-            document.getElementById('frog1').innerHTML = /* HTML*/ `
-    <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/frog.jpg" />
-    `;
-        }
-        function showCardHorse1() {
-            document.getElementById('horse1').innerHTML = /* HTML*/ `
-      <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/horse.jpg" />
-      `;
-        }
-        function showCardChicken1() {
-            document.getElementById('chicken1').innerHTML = /* HTML*/ `
-          <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/chicken.jpg" />
-          `;
-        }
-        function showCardSpider1() {
-            document.getElementById('spider1').innerHTML = /* HTML*/ `
-              <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/spider.jpg" />
-              `;
-        }
-        function showCardFrog2() {
-            document.getElementById('frog2').innerHTML = /* HTML*/ `
-                  <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/frog.jpg" />
-                  `;
-        }
-        function showCardSpider2() {
-            document.getElementById('spider2').innerHTML = /* HTML*/ `
-                      <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/spider.jpg" />
-                      `;
-        }
-        function showCardTiger1() {
-            document.getElementById('tiger1').innerHTML = /* HTML*/ `
-                          <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/tiger.jpg" />
-                          `;
-        }
-        function showCardChicken2() {
-            document.getElementById('chicken2').innerHTML = /* HTML*/ `
-                           <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/chicken.jpg" />
-                            `;
-        }
+                function showDogMatch() {
+                        document.getElementById('board').innerHTML = /*HTML*/`
+                <div><img src="https://getacademy.github.io/PictureLottox/img/dog.jpg"/></div>
+                <div onclick="showFrog1()"></div>
+                <div><img src="https://getacademy.github.io/PictureLottox/img/dog.jpg"/></div>
+                <div onclick="showFrog2()"></div>
+            `;
+                }
 
-        function showCardDog2() {
-            document.getElementById('dog2').innerHTML = /* HTML*/ `
-                            <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/dog.jpg" />
-                            `;
-        }
-        function showCardElephant1() {
-            document.getElementById('elephant1').innerHTML = /* HTML*/ `
-                              <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/elephant.jpg" />
-                              `;
-        }
-        function showCardCat1() {
-            document.getElementById('cat1').innerHTML = /* HTML*/ `
-                                <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/cat.gif" />
-                                `;
-        }
-        function showCardCat2() {
-            document.getElementById('cat2').innerHTML = /* HTML*/ `
-                                <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/cat.gif" />
-                                `;
-        }
-        function showCardElephant2() {
-            document.getElementById('elephant2').innerHTML = /* HTML*/ `
-                                <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/elephant.jpg" />
-                                `;
-        }
-        function showCardHorse2() {
-            document.getElementById('horse2').innerHTML = /* HTML*/ `
-                                <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/horse.jpg" />
-                                `;
-        }
-        function showCardTiger2() {
-            document.getElementById('tiger2').innerHTML = /*HTML */ `
-                                <img class="img-show" src="https://getacademy.github.io/PictureLottox/img/tiger.jpg" />
+                function showFrog1() {
+                        document.getElementById('board').innerHTML = /*HTML*/`
+                <div onclick="showDog1()"></div>
+                <div><img src="https://getacademy.github.io/PictureLottox/img/frog.jpg"/></div>
+                <div onclick="showDog2()"></div>
+                <div onclick="showFrogMatch()"></div>
+            `;
+                }
 
-    `;
-        }
-    </script>
+                function showFrogMatch() {
+                        document.getElementById('board').innerHTML = /*HTML*/`
+                <div onclick="showDog1()"></div>
+                <div><img src="https://getacademy.github.io/PictureLottox/img/frog.jpg"/></div>
+                <div onclick="showDog2()"></div>
+                <div><img src="https://getacademy.github.io/PictureLottox/img/frog.jpg"/></div>
+            `;
+                }
+
+                function showDog2() {
+                        document.getElementById('board').innerHTML = /*HTML*/`
+                <div onclick="showDog1()"></div>
+                <div onclick="showFrog1()"></div>
+                <div><img src="https://getacademy.github.io/PictureLottox/img/dog.jpg"/></div>
+                <div onclick="showFrog2()"></div>
+            `;
+                }
+
+                function showFrog2() {
+                        document.getElementById('board').innerHTML = /*HTML*/`
+                <div onclick="showDog1()"></div>
+                <div onclick="showFrog1()"></div>
+                <div onclick="showDog2()"></div>
+                <div><img src="https://getacademy.github.io/PictureLottox/img/frog.jpg"/></div>
+            `;
+                }
+        
+
+                show0();
+        </script>
 </body>
 
 </html>
