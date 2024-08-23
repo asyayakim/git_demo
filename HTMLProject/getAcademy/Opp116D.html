@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave116D</title>
+    <style>
+        .trafficLight {
+            width: 50px;
+            height: 200px;
+            background-color: black;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .light {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background-color: gray; /* All lights start off */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="trafficLight" onclick="showRedAndYellow()">
+        <div id="red" class="light" style="background-color: red;"></div>
+        <div id="yellow" class="light"></div>
+        <div id="green" class="light"></div>
+    </div>
+
+    <script>
+        function showRed() {
+            document.getElementById('red').style.backgroundColor = 'red';
+            document.getElementById('yellow').style.backgroundColor = 'gray';
+            document.getElementById('green').style.backgroundColor = 'gray';
+            document.querySelector('.trafficLight').onclick = showRedAndYellow;
+        }
+
+        function showRedAndYellow() {
+            document.getElementById('red').style.backgroundColor = 'red';
+            document.getElementById('yellow').style.backgroundColor = 'yellow';
+            document.getElementById('green').style.backgroundColor = 'gray';
+            document.querySelector('.trafficLight').onclick = showGreen;
+        }
+
+        function showGreen() {
+            document.getElementById('red').style.backgroundColor = 'gray';
+            document.getElementById('yellow').style.backgroundColor = 'gray';
+            document.getElementById('green').style.backgroundColor = 'green';
+            document.querySelector('.trafficLight').onclick = showYellow;
+        }
+
+        function showYellow() {
+            document.getElementById('red').style.backgroundColor = 'gray';
+            document.getElementById('yellow').style.backgroundColor = 'yellow';
+            document.getElementById('green').style.backgroundColor = 'gray';
+            document.querySelector('.trafficLight').onclick = showRed;
+        }
+
+        showRed(); 
+    </script>
+
+</body>
+</html>
