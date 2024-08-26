@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oppgave123C</title>
     <style>
         .trafficLight {
-            width: 50px;
-            height: 200px;
-            background-color: black;
-            padding: 5px;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            width: 3rem;
+            height: 10rem;
+            background-color: black;
+            padding: 1rem;
+            gap: 1rem;
         }
 
         .light {
@@ -24,6 +25,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="trafficLight" onclick="showRedAndYellow()">
@@ -31,37 +33,36 @@
         <div id="yellow" class="light"></div>
         <div id="green" class="light"></div>
     </div>
+    <div class="controls">
+        <button onclick="goToNextPhase()">Neste</button>
+    </div>
 
     <script>
-    
+         var phase = 0;
+
         function drawTrafficLight(red, yellow, green) {
             document.getElementById('red').style.backgroundColor = red ? 'red' : 'gray';
             document.getElementById('yellow').style.backgroundColor = yellow ? 'yellow' : 'gray';
             document.getElementById('green').style.backgroundColor = green ? 'green' : 'gray';
         }
 
-        function showRed() {
-            drawTrafficLight(true, false, false);
-            document.querySelector('.trafficLight').onclick = showRedAndYellow;
+        function goToNextPhase() {
+            phase = (phase + 1) % 4
+            if (phase === 0) {
+                drawTrafficLight(true, false, false);
+            } else if (phase === 1) {
+                drawTrafficLight(true, true, false);
+            } else if (phase === 2) {
+                drawTrafficLight(false, false, true);
+            } else if (phase === 3) {
+                drawTrafficLight(false, true, false);
+            }
+            // } else if (phase === 4) {
+            //     return (true, false, false);
+            // }
         }
-
-        function showRedAndYellow() {
-            drawTrafficLight(true, true, false);
-            document.querySelector('.trafficLight').onclick = showGreen;
-        }
-
-        function showGreen() {
-            drawTrafficLight(false, false, true);
-            document.querySelector('.trafficLight').onclick = showYellow;
-        }
-
-        function showYellow() {
-            drawTrafficLight(false, true, false);
-            document.querySelector('.trafficLight').onclick = showRed;
-        }
-
-        showRed(); 
     </script>
 
 </body>
+
 </html>
