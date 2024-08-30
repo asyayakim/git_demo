@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave124A,B,C</title>
+</head>
+
+<body>
+    <script>
+        function generateOrder(name, price, amount) {
+            var totalPrice = price * amount;
+            return `${amount} stk. ${name} a ${price}kr = ${totalPrice}kr`;
+        }
+        var order = generateOrder("Tastatur", 129, 3);
+        console.log(order);
+
+        function fahrenheitTilCelsius2(fahrenheit) {
+            var celsius = (fahrenheit - 32) * 5 / 9;
+            return celsius;
+        }
+        var celsius2 = fahrenheitTilCelsius2(68);
+        console.log(celsius2);
+
+        function celsiusTilFahrenheit (celsius) {
+            var fahrenheit = celsius * 9/5 + 32
+            return fahrenheit;
+        }
+        var fahrenheit2 = celsiusTilFahrenheit(33)
+        console.log(fahrenheit2);
+
+
+
+    </script>
+</body>
+
+</html>
