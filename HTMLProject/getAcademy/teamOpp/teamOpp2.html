@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        #board {
+            width: 30em;
+            height: 30em;
+            background-color: lightblue;
+            
+        }
+
+        #board>div {
+            position: absolute;
+        }
+
+        #buttons {
+            display: flex;
+        }
+
+        #buttons>div {
+            margin: 1em;
+        }
+
+        .jigsaw1,
+        .jigsaw2 {
+            width: 6em;
+            height: 6em;
+            position: relative;
+            -webkit-border-radius: 0.5em;
+            -moz-border-radius: 0.5em;
+            border-radius: 0.5em;
+            cursor: pointer;
+        }
+
+        .jigsaw1,
+        .jigsaw1 span {
+            background-color: #0284cf;
+        }
+
+        .jigsaw2,
+        .jigsaw2 span {
+            background-color: #00008b;
+        }
+
+        .text {
+            display: block;
+            color: #fff;
+            font-size: 1.2em;
+            text-align: center;
+            padding: 1.9em 0 0 1.2em;
+            position: relative;
+            background: transparent !important;
+        }
+
+        .jigsaw1 .t,
+        .jigsaw2 .t {
+            width: 2em;
+            height: 2em;
+            position: absolute;
+            top: -1.5em;
+            left: 2em;
+            -webkit-border-radius: 4em;
+            -moz-border-radius: 4em;
+            border-radius: 4em;
+        }
+
+        .jigsaw1 .r,
+        .jigsaw2 .r {
+            width: 2em;
+            height: 2em;
+            position: absolute;
+            top: 2em;
+            left: 5.5em;
+            -webkit-border-radius: 4em;
+            -moz-border-radius: 4em;
+            border-radius: 4em;
+        }
+
+        .jigsaw1 .b,
+        .jigsaw2 .b {
+            width: 1.8em;
+            height: 1.8em;
+            position: absolute;
+            top: 4.5em;
+            left: 2.2em;
+            -webkit-border-radius: 4em;
+            -moz-border-radius: 4em;
+            border-radius: 4em;
+            background-color: lightblue;
+        }
+
+        .jigsaw1 .l,
+        .jigsaw2 .l {
+            width: 1.8em;
+            height: 1.8em;
+            position: absolute;
+            top: 2.2em;
+            left: -0.4em;
+            -webkit-border-radius: 4em;
+            -moz-border-radius: 4em;
+            border-radius: 4em;
+            background-color: lightblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="
+        display: grid;
+        grid-template-columns: 32em auto;
+        grid-template-rows: auto 8em;
+        height: 95vh;
+        grid-template-areas: 'board text' ' buttons buttons';
+      ">
+        <div id="board" style="grid-area: board"></div>
+        <div id="exerciseText" style="overflow-y: scroll; height: 32em; grid-area: text"></div>
+        <div id="buttons" style="background-color: lightblue; grid-area: buttons"></div>
+    </div>
+    <script>
+        addPuzzlePiece("buttons", false, false, true, true, "addPuzzlePieceWithoutTopAndRightToBoard()", 1);
+        addPuzzlePiece("buttons", false, true, true, true, "addPuzzlePieceWithoutTopToBoard()", 2);
+        addPuzzlePiece("buttons", true, true, true, true, "addNormalPuzzlePieceToBoard()", 1);
+        addPuzzlePiece("buttons", true, false, true, true, "addPuzzlePieceWithoutRightToBoard()", 2);
+        addPuzzlePiece("buttons", false, true, true, false, "addPuzzlePieceWithoutTopAndLeftToBoard()", 1);
+        addPuzzlePiece("buttons", true, true, true, false, "addPuzzlePieceWithoutLeftToBoard()", 2);
+        addPuzzlePiece("buttons", true, false, false, true, "addPuzzlePieceWithoutRightAndBottomToBoard()", 1);
+        addPuzzlePiece("buttons", true, true, false, true, "addPuzzlePieceWithoutBottomToBoard()", 2);
+        addPuzzlePiece("buttons", true, true, false, false, "addPuzzlePieceWithoutLeftAndBottomToBoard()", 1);
+        let vertical = 0;
+        let horizontal = 24;
+        let color = 1
+        const boardSize = 24;
+
+        function updatePosition() {
+            addPuzzlePiece("board", false, false, true, true, '', color, horizontal, vertical);
+            horizontal -= 6;
+            if (horizontal < 0) {
+                horizontal = 24;
+                vertical += 6;
+            }
+
+            color = color === 1 ? 2 : 1;
+        }
+        function canAddPiece() {
+            return vertical < boardSize;
+        }
+
+        function addNormalPuzzlePieceToBoard() {
+            if (canAddPiece()) {
+                if ((horizontal == 24 || horizontal == 0) || (vertical == 0 || vertical >= 24)) return;
+                addPuzzlePiece('board', true, true, true, true, '', color, horizontal, vertical);
+                updatePosition();
+            }
+        }
+
+        function addPuzzlePieceWithoutTopAndRightToBoard() {
+            if (canAddPiece()) {
+                if (horizontal != 24 || vertical !== 0) return;
+                addPuzzlePiece("board", false, false, true, true, '', color, horizontal, vertical);
+                updatePosition();
+            }
+        }
+
+        function addPuzzlePieceWithoutTopToBoard() {
+            if (canAddPiece()) {
+                if ((horizontal == 24 || horizontal == 0) || vertical != 0) return;
+                addPuzzlePiece('board', false, true, true, true, '', color, horizontal, vertical);
+                updatePosition();
+            }
+        }
+        function addPuzzlePieceWithoutTopAndLeftToBoard() {
+            if (canAddPiece()) {
+                if(horizontal != 0 || vertical != 0)return;
+                addPuzzlePiece('board', false, true, true, false, '', color, horizontal, vertical);
+                updatePosition();
+            }
+        }
+
+        function addPuzzlePieceWithoutRightToBoard() {
+            if (canAddPiece()) {
+                if (horizontal != 24 || (vertical == 0 || vertical >= 24)) return;
+                addPuzzlePiece('board', true, false, true, true, '', color, horizontal, vertical);
+                updatePosition();
+            }
+        }
+
+        
+
+        function addPuzzlePieceWithoutLeftToBoard() {
+            if (canAddPiece()) {
+                if(horizontal != 0 || (vertical == 0 || vertical == 24))return;
+                addPuzzlePiece('board', true, true, true, false, '', color, horizontal, vertical);
+                updatePosition();
+            }
+        }
+
+        function addPuzzlePieceWithoutRightAndBottomToBoard() {
+            if (canAddPiece()) {
+                if(horizontal != 24 || vertical != 24)return;
+                addPuzzlePiece('board', true, false, false, true, '', color, horizontal, vertical);
+                updatePosition();
+            }
+        }
+
+        function addPuzzlePieceWithoutBottomToBoard() {
+            if (canAddPiece()) {
+                if((horizontal == 24 || horizontal == 0) || vertical != 24) return;
+                addPuzzlePiece('board', true, true, false, true, '', color, horizontal, vertical);
+                updatePosition();
+            }
+        }
+
+        function addPuzzlePieceWithoutLeftAndBottomToBoard() {
+            if (canAddPiece()) {
+                if(horizontal != 0 || vertical != 24)return;
+                addPuzzlePiece('board', true, true, false, false, '', color, horizontal, vertical);
+                updatePosition();
+            }
+        }
+
+        function addPuzzlePiece(toId, hasTop, hasRight, hasBottom, hasLeft, onclick, color, leftPosition, topPosition) {
+            let style = "";
+            if (leftPosition !== undefined) {
+                style = `left: ${leftPosition + 0.5}em; top: ${topPosition + 0.5}em`;
+            }
+            document.getElementById(toId).innerHTML += /*HTML*/ `
+                <div class="jigsaw${color}" onclick="${onclick}" style="${style}">
+                    ${hasTop ? `<span class="t"></span>` : ""}
+                    ${hasRight ? `<span class="r"></span>` : ""}
+                    ${hasBottom ? `<span class="b"></span>` : ""}
+                    ${hasLeft ? `<span class="l"></span>` : ""}
+                </div>            
+            `;
+        }
+        document.getElementById("exerciseText").innerHTML = /*HTML*/ `            
+                <h2>Puzzle Game</h2>
+                `;
+    </script>
+</body>
+
+</html>
