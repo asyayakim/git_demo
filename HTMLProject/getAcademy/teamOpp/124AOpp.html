@@ -23,14 +23,28 @@
         var celsius2 = fahrenheitTilCelsius2(68);
         console.log(celsius2);
 
-        function celsiusTilFahrenheit (celsius) {
-            var fahrenheit = celsius * 9/5 + 32
+        function celsiusTilFahrenheit(celsius) {
+            var fahrenheit = celsius * 9 / 5 + 32
             return fahrenheit;
         }
         var fahrenheit2 = celsiusTilFahrenheit(33)
         console.log(fahrenheit2);
+//oppgave 124D
+        function fahrenheitCelsiusTransformer(degree, value) {
+            if (degree === 'fahrenheit' || degree === 'f') {
+                return (value - 32) * 5 / 9;
+            } else if (degree === 'celsius' || degree === 'c') {
+                return (value * 9 / 5) + 32;
+            } else {
+                return "Incorrect answer, use 'fahrenheit', 'celsius', 'f', or 'c'.";
+            }
+        }
 
+        var resultat1 = fahrenheitCelsiusTransformer('f', 94);
+        console.log(resultat1); 
 
+        var resultat2 = fahrenheitCelsiusTransformer('c', 32);
+        console.log(resultat2);
 
     </script>
 </body>
