@@ -10,7 +10,7 @@
             width: 30em;
             height: 30em;
             background-color: lightblue;
-            
+
         }
 
         #board>div {
@@ -132,93 +132,100 @@
         addPuzzlePiece("buttons", true, true, false, false, "addPuzzlePieceWithoutLeftAndBottomToBoard()", 1);
         let vertical = 0;
         let horizontal = 24;
-        let color = 1
-        const boardSize = 24;
+        let color = 1;
+        const boardSize = 30;
 
         function updatePosition() {
-            addPuzzlePiece("board", false, false, true, true, '', color, horizontal, vertical);
             horizontal -= 6;
             if (horizontal < 0) {
                 horizontal = 24;
                 vertical += 6;
             }
-
             color = color === 1 ? 2 : 1;
         }
+
         function canAddPiece() {
             return vertical < boardSize;
         }
 
         function addNormalPuzzlePieceToBoard() {
             if (canAddPiece()) {
-                if ((horizontal == 24 || horizontal == 0) || (vertical == 0 || vertical >= 24)) return;
-                addPuzzlePiece('board', true, true, true, true, '', color, horizontal, vertical);
-                updatePosition();
+                if (horizontal > 0 && horizontal < 24 && vertical > 0 && vertical < 24) {
+                    addPuzzlePiece('board', true, true, true, true, '', color, horizontal, vertical);
+                    updatePosition();
+                }
             }
         }
 
         function addPuzzlePieceWithoutTopAndRightToBoard() {
             if (canAddPiece()) {
-                if (horizontal != 24 || vertical !== 0) return;
-                addPuzzlePiece("board", false, false, true, true, '', color, horizontal, vertical);
-                updatePosition();
+                if (horizontal === 24 && vertical === 0) {
+                    addPuzzlePiece("board", false, false, true, true, '', color, horizontal, vertical);
+                    updatePosition();
+                }
             }
         }
 
         function addPuzzlePieceWithoutTopToBoard() {
             if (canAddPiece()) {
-                if ((horizontal == 24 || horizontal == 0) || vertical != 0) return;
-                addPuzzlePiece('board', false, true, true, true, '', color, horizontal, vertical);
-                updatePosition();
+                if (horizontal > 0 && horizontal < 24 && vertical === 0) {
+                    addPuzzlePiece('board', false, true, true, true, '', color, horizontal, vertical);
+                    updatePosition();
+                }
             }
         }
+
         function addPuzzlePieceWithoutTopAndLeftToBoard() {
             if (canAddPiece()) {
-                if(horizontal != 0 || vertical != 0)return;
-                addPuzzlePiece('board', false, true, true, false, '', color, horizontal, vertical);
-                updatePosition();
+                if (horizontal === 0 && vertical === 0) {
+                    addPuzzlePiece('board', false, true, true, false, '', color, horizontal, vertical);
+                    updatePosition();
+                }
             }
         }
 
         function addPuzzlePieceWithoutRightToBoard() {
             if (canAddPiece()) {
-                if (horizontal != 24 || (vertical == 0 || vertical >= 24)) return;
-                addPuzzlePiece('board', true, false, true, true, '', color, horizontal, vertical);
-                updatePosition();
+                if (horizontal === 24 && vertical > 0 && vertical < 24) {
+                    addPuzzlePiece('board', true, false, true, true, '', color, horizontal, vertical);
+                    updatePosition();
+                }
             }
         }
 
-        
-
         function addPuzzlePieceWithoutLeftToBoard() {
             if (canAddPiece()) {
-                if(horizontal != 0 || (vertical == 0 || vertical == 24))return;
-                addPuzzlePiece('board', true, true, true, false, '', color, horizontal, vertical);
-                updatePosition();
+                if (horizontal === 0 && vertical > 0 && vertical < 24) {
+                    addPuzzlePiece('board', true, true, true, false, '', color, horizontal, vertical);
+                    updatePosition();
+                }
             }
         }
 
         function addPuzzlePieceWithoutRightAndBottomToBoard() {
             if (canAddPiece()) {
-                if(horizontal != 24 || vertical != 24)return;
-                addPuzzlePiece('board', true, false, false, true, '', color, horizontal, vertical);
-                updatePosition();
+                if (horizontal === 24 && vertical === 24) {
+                    addPuzzlePiece('board', true, false, false, true, '', color, horizontal, vertical);
+                    updatePosition();
+                }
             }
         }
 
         function addPuzzlePieceWithoutBottomToBoard() {
             if (canAddPiece()) {
-                if((horizontal == 24 || horizontal == 0) || vertical != 24) return;
-                addPuzzlePiece('board', true, true, false, true, '', color, horizontal, vertical);
-                updatePosition();
+                if (horizontal > 0 && horizontal < 24 && vertical === 24) {
+                    addPuzzlePiece('board', true, true, false, true, '', color, horizontal, vertical);
+                    updatePosition();
+                }
             }
         }
 
         function addPuzzlePieceWithoutLeftAndBottomToBoard() {
             if (canAddPiece()) {
-                if(horizontal != 0 || vertical != 24)return;
-                addPuzzlePiece('board', true, true, false, false, '', color, horizontal, vertical);
-                updatePosition();
+                if (horizontal === 0 && vertical === 24) {
+                    addPuzzlePiece('board', true, true, false, false, '', color, horizontal, vertical);
+                    updatePosition();
+                }
             }
         }
 
@@ -228,14 +235,19 @@
                 style = `left: ${leftPosition + 0.5}em; top: ${topPosition + 0.5}em`;
             }
             document.getElementById(toId).innerHTML += /*HTML*/ `
-                <div class="jigsaw${color}" onclick="${onclick}" style="${style}">
-                    ${hasTop ? `<span class="t"></span>` : ""}
-                    ${hasRight ? `<span class="r"></span>` : ""}
-                    ${hasBottom ? `<span class="b"></span>` : ""}
-                    ${hasLeft ? `<span class="l"></span>` : ""}
-                </div>            
-            `;
+        <div class="jigsaw${color}" onclick="${onclick}" style="${style}">
+            ${hasTop ? `<span class="t"></span>` : ""}
+            ${hasRight ? `<span class="r"></span>` : ""}
+            ${hasBottom ? `<span class="b"></span>` : ""}
+            ${hasLeft ? `<span class="l"></span>` : ""}
+        </div>            
+    `;
         }
+
+        document.getElementById("exerciseText").innerHTML = /*HTML*/ `
+    <h2>Puzzle Game</h2>
+`;
+
         document.getElementById("exerciseText").innerHTML = /*HTML*/ `            
                 <h2>Puzzle Game</h2>
                 `;
