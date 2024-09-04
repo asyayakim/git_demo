@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .game-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .tower-container {
+            position: relative;
+        }
+
+        .tower {
+            width: 100px;
+            height: 120px;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            border-bottom: 8px solid darkred;
+        }
+
+        .tower-container::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 120px;
+            z-index: -10;
+            background-color: darkred;
+        }
+
+        .disk {
+            width: 20px;
+            height: 20px;
+            background-color: blue;
+            border: 4px solid gray;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+
+   <script>
+    // Disk positions: 0 = left, 1 = middle, 2 = right
+    let smallDiskOnTowerIndex = 0;
+    let mediumDiskOnTowerIndex = 0;
+    let largeDiskOnTowerIndex = 0;
+
+    updateView();
+
+    function updateView() {
+        let leftTower = '';
+        let middleTower = '';
+        let rightTower = '';
+
+        if (largeDiskOnTowerIndex === 0) leftTower += '<div class="disk" style="width: 70px"></div>';
+        else if (largeDiskOnTowerIndex === 1) middleTower += '<div class="disk" style="width: 70px"></div>';
+        else if (largeDiskOnTowerIndex === 2) rightTower += '<div class="disk" style="width: 70px"></div>';
+
+        if (mediumDiskOnTowerIndex === 0) leftTower += '<div class="disk" style="width: 50px"></div>';
+        else if (mediumDiskOnTowerIndex === 1) middleTower += '<div class="disk" style="width: 50px"></div>';
+        else if (mediumDiskOnTowerIndex === 2) rightTower += '<div class="disk" style="width: 50px"></div>';
+
+        if (smallDiskOnTowerIndex === 0) leftTower += '<div class="disk" style="width: 30px"></div>';
+        else if (smallDiskOnTowerIndex === 1) middleTower += '<div class="disk" style="width: 30px"></div>';
+        else if (smallDiskOnTowerIndex === 2) rightTower += '<div class="disk" style="width: 30px"></div>';
+
+        // Check if the game is solved (all disks are on the right tower)
+        const gameSolved = smallDiskOnTowerIndex === 2 && mediumDiskOnTowerIndex === 2 && largeDiskOnTowerIndex === 2;
+
+        document.getElementById('app').innerHTML = /*html*/`
+        <div class="game-container">
+            <div class="tower-container">
+                <div class="tower">${leftTower}</div>
+            </div>
+            <div class="tower-container">
+                <div class="tower">${middleTower}</div>
+            </div>
+            <div class="tower-container">
+                <div class="tower">${rightTower}</div>
+            </div>
+        </div>
+        <div class="buttons">
+            Flytt liten disk til 
+            ${getButtonHTML(smallDiskOnTowerIndex, 0, 'moveSmallDisk(0)', 'venstre tårn')}
+            ${getButtonHTML(smallDiskOnTowerIndex, 1, 'moveSmallDisk(1)', 'midtre tårn')}
+            ${getButtonHTML(smallDiskOnTowerIndex, 2, 'moveSmallDisk(2)', 'høyre tårn')}
+            <br/>
+            Flytt medium disk
+            ${getButtonHTML(mediumDiskOnTowerIndex, 0, 'moveMediumDisk(0)', 'venstre tårn')}
+            ${getButtonHTML(mediumDiskOnTowerIndex, 1, 'moveMediumDisk(1)', 'midtre tårn')}
+            ${getButtonHTML(mediumDiskOnTowerIndex, 2, 'moveMediumDisk(2)', 'høyre tårn')}
+            <br/>
+            Flytt stor disk
+            ${getButtonHTML(largeDiskOnTowerIndex, 0, 'moveLargeDisk(0)', 'venstre tårn')}
+            ${getButtonHTML(largeDiskOnTowerIndex, 1, 'moveLargeDisk(1)', 'midtre tårn')}
+            ${getButtonHTML(largeDiskOnTowerIndex, 2, 'moveLargeDisk(2)', 'høyre tårn')}
+            <br/>
+            <!-- Show reset button if the game is solved and message -->
+            ${gameSolved ? `<button onclick="resetGame()">Reset Game</button><p class="success-message">Congrats! You did it!</p>` : ''}
+      </div>
+
+    `;
+    }
+ //generates the HTML for a button, showing it only if the move is valid
+    function getButtonHTML(currentTowerIndex, targetTowerIndex, onClickFunction, buttonText) {
+        //show button if the move is valid and not on the same tower
+        if (currentTowerIndex === targetTowerIndex || !canMoveDisk(currentTowerIndex, targetTowerIndex, getTopDiskSize(currentTowerIndex))) {
+            return ''; //hide button if trying to move to the same tower or if move is invalid
+        }
+        return `<button onclick="${onClickFunction}">${buttonText}</button>`;
+    }
+//can move disc?
+    function canMoveDisk(fromTowerIndex, toTowerIndex, diskSize) {
+        if (getTopDiskSize(fromTowerIndex) !== diskSize) {
+            return false; //disk is't the top disk on the tower
+        }
+
+        const topDiskAtTo = getTopDiskSize(toTowerIndex);
+        return topDiskAtTo === null || diskSize < topDiskAtTo;
+    }
+// Returns the size of the top disk on a given tower, or null if the tower is empty
+    function getTopDiskSize(towerIndex) {
+        if (towerIndex === smallDiskOnTowerIndex) return 30;
+        if (towerIndex === mediumDiskOnTowerIndex) return 50;
+        if (towerIndex === largeDiskOnTowerIndex) return 70;
+        return null;
+    }
+
+    function moveSmallDisk(toTowerIndex) {
+        if (canMoveDisk(smallDiskOnTowerIndex, toTowerIndex, 30)) {
+            smallDiskOnTowerIndex = toTowerIndex;
+            updateView();
+        }
+    }
+
+    function moveMediumDisk(toTowerIndex) {
+        if (canMoveDisk(mediumDiskOnTowerIndex, toTowerIndex, 50)) {
+            mediumDiskOnTowerIndex = toTowerIndex;
+            updateView();
+        }
+    }
+
+    function moveLargeDisk(toTowerIndex) {
+        if (canMoveDisk(largeDiskOnTowerIndex, toTowerIndex, 70)) {
+            largeDiskOnTowerIndex = toTowerIndex;
+            updateView();
+        }
+    }
+// add reset the game 
+    function resetGame() {
+        smallDiskOnTowerIndex = 0;
+        mediumDiskOnTowerIndex = 0;
+        largeDiskOnTowerIndex = 0;
+        updateView();
+    }
+</script>
+
+</body>
+
+</html>

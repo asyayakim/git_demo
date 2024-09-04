@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .game-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .tower-container {
+            position: relative;
+        }
+
+        .tower {
+            width: 100px;
+            height: 120px;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            border-bottom: 8px solid darkred;
+        }
+
+        .tower-container::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 120px;
+            z-index: -10;
+            background-color: darkred;
+        }
+
+        .disk {
+            width: 20px;
+            height: 20px;
+            background-color: blue;
+            border: 4px solid gray;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+
+    <script>
+        /******************************************************************************
+  * MODEL: Holde styr på hvor hver disk er plassert.
+  ******************************************************************************/
+        //   hvor er diskene, 0 = venstre tårn, 1 = midten, 2 = høyre
+        //   alle starter til venstre
+        let smallDiskOnTowerIndex = 0; // 0 = left, 1 = middle, 2 = right
+        let mediumDiskOnTowerIndex = 0; // 0 = left, 1 = middle, 2 = right
+        let largeDiskOnTowerIndex = 0; // 0 = left, 1 = middle, 2 = right
+
+
+        /******************************************************************************
+         * VIEW: Genererer HTML basert på diskenes posisjon fra modellen til å bestemme
+         *       hvor hver disk skal vises.
+         ******************************************************************************/
+        updateView();
+        function updateView() {
+            let leftTower = '';
+            let middleTower = '';
+            let rightTower = '';
+            let winner = false
+
+            //large disk
+
+            if (largeDiskOnTowerIndex === 0) {
+                leftTower += '<div class="disk" style="width: 70px"></div>';
+            } else if (largeDiskOnTowerIndex === 1) {
+                middleTower += '<div class="disk" style="width: 70px"></div>';
+            } else if (largeDiskOnTowerIndex === 2) {
+                rightTower += '<div class="disk" style="width: 70px"></div>';
+            }
+            //medium disc
+            if (mediumDiskOnTowerIndex === 0) {
+                leftTower += '<div class="disk" style="width: 50px"></div>';
+            } else if (mediumDiskOnTowerIndex === 1) {
+                middleTower += '<div class="disk" style="width: 50px"></div>';
+            } else if (mediumDiskOnTowerIndex === 2) {
+                rightTower += '<div class="disk" style="width: 50px"></div>';
+            }
+            //small disc
+            if (smallDiskOnTowerIndex === 0) {
+                leftTower += '<div class="disk" style="width: 30px"></div>';
+            } else if (smallDiskOnTowerIndex === 1) {
+                middleTower += '<div class="disk" style="width: 30px"></div>';
+            } else if (smallDiskOnTowerIndex === 2) {
+                rightTower += '<div class="disk" style="width: 30px"></div>';
+            }
+            document.getElementById('app').innerHTML = /*HTML*/ `
+                <div class="game-container">
+                    <div class="tower-container">
+                        <div class="tower">
+                        ${leftTower}
+                        
+                        </div>
+                    </div>
+                    <div class="tower-container">
+                        <div class="tower">
+                        ${middleTower}
+                         </div>
+                    </div>
+                    <div class="tower-container">
+                        <div class="tower">
+                         ${rightTower}                                
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons">
+                Flytt liten disk til 
+                <button onclick="moveSmallDisk(0)">venstre tårn</button>
+                <button onclick="moveSmallDisk(1)">midtre tårn</button>
+                <button onclick="moveSmallDisk(2)">høyre tårn</button>
+                <br/>
+                Flytt medium disk
+                <button onclick="moveMediumDisk(0)">venstre tårn</button>
+                <button onclick="moveMediumDisk(1)">midtre tårn</button>
+                <button onclick="moveMediumDisk(2)">høyre tårn</button>
+                <br/>
+                Flytt stor disk
+                <button onclick="moveLargeDisk(0)">venstre tårn</button>
+                <button onclick="moveLargeDisk(1)">midtre tårn</button>
+                <button onclick="moveLargeDisk(2)">høyre tårn</button>
+                <br/></div>
+            `;
+        }
+
+        // controller
+       
+        // check if a move is valid
+        function canMoveDisk(fromTowerIndex, toTowerIndex, diskSize) {
+            //check if the disk is the top
+            if (getTopDiskSize(fromTowerIndex) !== diskSize) {
+                return false;
+            }
+
+            //check if the move is valid
+            const topDiskAtTo = getTopDiskSize(toTowerIndex);
+            return topDiskAtTo === null || diskSize < topDiskAtTo;
+            if(smallDiskTowerIndex == 2 && mediumDiskTowerIndex == 2 && largeDiskTowerIndex == 2){
+                winner = true;
+            }
+            
+        }
+        //possible to use let and give sizes manually
+        function getTopDiskSize(towerIndex) {
+            //return the size of the top disk on the tower or null if no disk is present
+            if (towerIndex === smallDiskOnTowerIndex) return 30;
+            if (towerIndex === mediumDiskOnTowerIndex) return 50;
+            if (towerIndex === largeDiskOnTowerIndex) return 70;
+            return null;
+        }
+
+        function moveSmallDisk(toTowerIndex) {
+            if (canMoveDisk(smallDiskOnTowerIndex, toTowerIndex, 30)) {
+                smallDiskOnTowerIndex = toTowerIndex;
+                updateView();
+            }
+        }
+
+        function moveMediumDisk(toTowerIndex) {
+            if (canMoveDisk(mediumDiskOnTowerIndex, toTowerIndex, 50)) {
+                mediumDiskOnTowerIndex = toTowerIndex;
+                updateView();
+            }
+        }
+
+        function moveLargeDisk(toTowerIndex) {
+            if (canMoveDisk(largeDiskOnTowerIndex, toTowerIndex, 70)) {
+                largeDiskOnTowerIndex = toTowerIndex;
+                updateView();
+            }
+        }
+        function resetGame(){
+            location.reload();
+        }
+
+        // /******************************************************************************
+        //  * CONTROLLER: Flytte diskene til de angitte tårnene basert på brukerens valg
+        //  ******************************************************************************/
+        // /**
+        //  * Flytter den lille disken til det spesifiserte tårnet.
+        //  * @param {number} toTowerIndex - Indeksen til tårnet som den lille disken skal flyttes til
+        //  *                                (0 = venstre, 1 = midten, 2 = høyre).
+        //  */
+        // function moveSmallDisk(toTowerIndex) {
+        //     smallDiskOnTowerIndex = toTowerIndex;
+        //     updateView();
+        // }
+
+        // /**
+        //  * Flytter den mellomstore disken til det spesifiserte tårnet.
+        //  * @param {number} toTowerIndex - Indeksen til tårnet som den mellomstore disken skal flyttes til
+        //  *                                (0 = venstre, 1 = midten, 2 = høyre).
+        //  */
+        // function moveMediumDisk(toTowerIndex) {
+        //     mediumDiskOnTowerIndex = toTowerIndex;
+        //     updateView();
+        // }
+
+        // /**
+        //  * Flytter den store disken til det spesifiserte tårnet.
+        //  * @param {number} toTowerIndex - Indeksen til tårnet som den store disken skal flyttes til
+        //  *                                (0 = venstre, 1 = midten, 2 = høyre).
+        //  */
+        // function moveLargeDisk(toTowerIndex) {
+        //     largeDiskOnTowerIndex = toTowerIndex;
+        //     updateView();
+        // }
+    </script>
+</body>
+
+</html>
