@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Kalkulator</title>
+    <style type="text/css">
+        div {
+            float: left;
+            background-color: beige;
+            width: 50px;
+            height: 50px;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+            vertical-align: middle;
+            font-family: helvetica;
+            font-size: 200%;
+            border: #bbbbaa solid 4px;
+            border-radius: 10px;
+        }
+
+        div.resultBox {
+            width: 344px;
+            text-align: right;
+        }
+
+        div.firstInRow {
+            clear: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="resultBox" class="resultBox" id="screen"></div>
+
+    <div class="firstInRow" onclick="addCharacter(7)">7</div>
+    <div onclick="addCharacter(8)">8</div>
+    <div onclick="addCharacter(9)">9</div>
+    <div onclick="addCharacter('÷')">÷</div>
+
+    <div class="firstInRow" onclick="addCharacter(4)">4</div>
+    <div onclick="addCharacter(5)">5</div>
+    <div onclick="addCharacter(6)">6</div>
+    <div onclick="addCharacter('×')">×</div>
+
+    <div class="firstInRow" onclick="addCharacter(1)">1</div>
+    <div onclick="addCharacter(2)">2</div>
+    <div onclick="addCharacter(3)">3</div>
+    <div onclick="addCharacter('-')">-</div>
+
+    <div class="firstInRow" onclick="addCharacter(0)">0</div>
+    <div onclick="clearResult();">C</div>
+    <div onclick="calculate()">=</div>
+    <div onclick="addCharacter('+')">+</div>
+
+    <script type="text/javascript">
+        // model
+        const CalculatorModel = {
+            currentInput: '',  // current input
+
+            //to add input
+            addCharacter(character) {
+                this.currentInput += character;
+            },
+
+            //clear the current input
+            clearInput() {
+                this.currentInput = '';
+            },
+            // Method to validate the expression before evaluating
+            isValidExpression(expression) {
+                // Regular expression to check for a valid math expression
+                const validExpression = /^[0-9+\-*/(). ]+$/;
+                return validExpression.test(expression);
+            },
+
+            //calculate the result of the current input
+            calculateResult() {
+                const expression = this.currentInput.replace(/×/g, '*').replace(/÷/g, '/');
+                //validate the expression
+                if (this.isValidExpression(expression)) {
+                    this.currentInput = eval(expression).toString();  //evaluate
+                } else {
+                    this.currentInput = 'Error';
+                }
+            }
+        };
+        //view
+        const CalculatorView = {
+            resultBox: document.getElementById('resultBox'),
+
+            updateDisplay(newContent) {
+                this.resultBox.innerHTML = newContent;
+            }
+        };
+
+        //controller
+        const CalculatorController = {
+            init() {
+                this.setupEventListeners();
+            },
+            setupEventListeners() {
+    
+                const buttons = document.querySelectorAll('.button');
+                buttons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const value = button.getAttribute('data-value');  //button value
+                        const action = button.getAttribute('data-action');  //button action
+
+                        if (value) {
+                            CalculatorModel.addCharacter(value);  
+                            CalculatorModel.clearInput();  
+                        } else if (action === 'calculate') {
+                            CalculatorModel.calculateResult(); 
+                        }
+
+                        //update view
+                        CalculatorView.updateDisplay(CalculatorModel.currentInput);
+                    });
+                });
+            }
+        };
+
+        CalculatorController.init();
+        var resultBox = document.getElementById('resultBox');
+
+        function addCharacter(x) {
+            resultBox.innerHTML += x;
+        }
+
+        function calculate() {
+            var calculation = resultBox
+                .innerHTML
+                .replace('×', '*')
+                .replace('÷', '/');
+            resultBox.innerHTML = eval(calculation);
+        }
+        function clearResult() {
+            resultBox.innerHTML = '';
+        }
+    </script>
+</body>
+
+</html>
