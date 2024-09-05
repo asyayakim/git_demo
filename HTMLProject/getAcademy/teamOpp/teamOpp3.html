@@ -81,47 +81,56 @@
         const gameSolved = smallDiskOnTowerIndex === 2 && mediumDiskOnTowerIndex === 2 && largeDiskOnTowerIndex === 2;
 
         document.getElementById('app').innerHTML = /*html*/`
-        <div class="game-container">
-            <div class="tower-container">
-                <div class="tower">${leftTower}</div>
-            </div>
-            <div class="tower-container">
-                <div class="tower">${middleTower}</div>
-            </div>
-            <div class="tower-container">
-                <div class="tower">${rightTower}</div>
-            </div>
+    <div class="game-container">
+        <div class="tower-container">
+            <div class="tower">${leftTower}</div>
         </div>
-        <div class="buttons">
-            Flytt liten disk til 
-            ${getButtonHTML(smallDiskOnTowerIndex, 0, 'moveSmallDisk(0)', 'venstre tårn')}
-            ${getButtonHTML(smallDiskOnTowerIndex, 1, 'moveSmallDisk(1)', 'midtre tårn')}
-            ${getButtonHTML(smallDiskOnTowerIndex, 2, 'moveSmallDisk(2)', 'høyre tårn')}
-            <br/>
-            Flytt medium disk
-            ${getButtonHTML(mediumDiskOnTowerIndex, 0, 'moveMediumDisk(0)', 'venstre tårn')}
-            ${getButtonHTML(mediumDiskOnTowerIndex, 1, 'moveMediumDisk(1)', 'midtre tårn')}
-            ${getButtonHTML(mediumDiskOnTowerIndex, 2, 'moveMediumDisk(2)', 'høyre tårn')}
-            <br/>
-            Flytt stor disk
-            ${getButtonHTML(largeDiskOnTowerIndex, 0, 'moveLargeDisk(0)', 'venstre tårn')}
-            ${getButtonHTML(largeDiskOnTowerIndex, 1, 'moveLargeDisk(1)', 'midtre tårn')}
-            ${getButtonHTML(largeDiskOnTowerIndex, 2, 'moveLargeDisk(2)', 'høyre tårn')}
-            <br/>
-            <!-- Show reset button if the game is solved and message -->
-            ${gameSolved ? `<button onclick="resetGame()">Reset Game</button><p class="success-message">Congrats! You did it!</p>` : ''}
-      </div>
+        <div class="tower-container">
+            <div class="tower">${middleTower}</div>
+        </div>
+        <div class="tower-container">
+            <div class="tower">${rightTower}</div>
+        </div>
+    </div>
+    <div class="buttons">
+        <!--added diskSize parameter for each disk to avoid buttons with larger buttons to pop-->
+        Flytt liten disk til 
+        ${getButtonHTML(smallDiskOnTowerIndex, 0, 'moveSmallDisk(0)', 'venstre tårn', 30)}
+        ${getButtonHTML(smallDiskOnTowerIndex, 1, 'moveSmallDisk(1)', 'midtre tårn', 30)}
+        ${getButtonHTML(smallDiskOnTowerIndex, 2, 'moveSmallDisk(2)', 'høyre tårn', 30)}
+        <br/>
+        Flytt medium disk
+        ${getButtonHTML(mediumDiskOnTowerIndex, 0, 'moveMediumDisk(0)', 'venstre tårn', 50)}
+        ${getButtonHTML(mediumDiskOnTowerIndex, 1, 'moveMediumDisk(1)', 'midtre tårn', 50)}
+        ${getButtonHTML(mediumDiskOnTowerIndex, 2, 'moveMediumDisk(2)', 'høyre tårn', 50)}
+        <br/>
+        Flytt stor disk
+        ${getButtonHTML(largeDiskOnTowerIndex, 0, 'moveLargeDisk(0)', 'venstre tårn', 70)}
+        ${getButtonHTML(largeDiskOnTowerIndex, 1, 'moveLargeDisk(1)', 'midtre tårn', 70)}
+        ${getButtonHTML(largeDiskOnTowerIndex, 2, 'moveLargeDisk(2)', 'høyre tårn', 70)}
+        <br/>
+        <!-- Show reset button if the game is solved and message -->
+        ${gameSolved ? `<button onclick="resetGame()">Reset Game</button><p class="success-message">Congrats! You did it!</p>` : ''}
+    </div>
+`;
 
-    `;
     }
  //generates the HTML for a button, showing it only if the move is valid
-    function getButtonHTML(currentTowerIndex, targetTowerIndex, onClickFunction, buttonText) {
-        //show button if the move is valid and not on the same tower
-        if (currentTowerIndex === targetTowerIndex || !canMoveDisk(currentTowerIndex, targetTowerIndex, getTopDiskSize(currentTowerIndex))) {
-            return ''; //hide button if trying to move to the same tower or if move is invalid
-        }
-        return `<button onclick="${onClickFunction}">${buttonText}</button>`;
+ function getButtonHTML(currentTowerIndex, targetTowerIndex, onClickFunction, buttonText, diskSize) {
+    const topDiskSize = getTopDiskSize(currentTowerIndex);
+
+    //if the current disk is't the top disk hide the button
+    if (topDiskSize !== diskSize) {
+        return ''; //disk is't on the top, so we don't show the move button
     }
+    //show button if the move is valid and not to the same tower
+    if (currentTowerIndex === targetTowerIndex || 
+    !canMoveDisk(currentTowerIndex, targetTowerIndex, diskSize)) {
+        return ''; //hide button if trying to move to the same tower or if the move is invalid
+    }
+    return `<button onclick="${onClickFunction}">${buttonText}</button>`;
+}
+
 //can move disc?
     function canMoveDisk(fromTowerIndex, toTowerIndex, diskSize) {
         if (getTopDiskSize(fromTowerIndex) !== diskSize) {
