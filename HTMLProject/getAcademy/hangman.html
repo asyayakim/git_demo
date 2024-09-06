@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman</title>
+    <style>
+        .hangmanInput, h1 {
+            margin: 10px;
+        }
+
+        .correctWord {
+            margin: 30px;
+            font-size: large;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Hangman</h1>
+    <div class="hangmanInput">
+        <label for="inputLetter">Guess it here:</label>
+        <input type="text" id="inputLetter" maxlength="1">
+        <button id="guessButton" onclick="guess()">Guess</button>
+    </div>
+    <div class="correctWord">
+        <!--add the word which shoulb be guessed -->
+        <div id="message"></div>
+        <div id="currentText">-----</div>
+    </div>
+    <script>
+        //mod
+        let secretText = 'TERJE';
+        let currentText = '-----'
+        let incorrectGuess = 0;
+        const maximumIncorrect = 5;
+
+
+        function guess() {
+            const inputLetter = document.getElementById('inputLetter');
+            const guessedLetter = inputLetter.value.toUpperCase();
+            inputLetter.value = '';  // Clear the input field after guessing
+
+            if (guessedLetter.length === 0) {
+                return;
+            }
+
+            const newCurrentText = evaluateHangman(secretText, currentText, guessedLetter);
+            if (newCurrentText === currentText) {
+                incorrectGuess++;
+                //add message if you did incorrect guess
+                document.getElementById('message').innerText = `Incorrect guesses: ${incorrectGuess}`;
+            }
+            currentText = newCurrentText;
+            document.getElementById('currentText').innerText = currentText;
+
+            if (currentText === secretText) {
+                document.getElementById('message').innerText = 'Congratulations! You guessed the word!';
+            } else if (incorrectGuess >= maximumIncorrect) {
+                document.getElementById('message').innerText = 'Game over! You lost!';
+            }
+        }
+
+            function evaluateHangman(secretText, currentText, guessedLetter) {
+                const index = secretText.indexOf(guessedLetter);
+                if (index == -1) return currentText;
+
+
+                const currentTextBeforeGuessedLetter = currentText.substring(0, index);
+                const currentTextAfterGuessedLetter = currentText.substring(index + 1);
+                const secretTextAfterGuessedLetter = secretText.substring(index + 1);
+
+                return currentTextBeforeGuessedLetter + guessedLetter + evaluateHangman(secretTextAfterGuessedLetter, currentTextAfterGuessedLetter, guessedLetter);
+            }
+        //evaluateHangman('TERJE KOLDERUP', '__', 'E');
+
+
+
+    </script>
+</body>
+
+</html>
