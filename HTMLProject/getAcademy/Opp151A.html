@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oppgave</title>
+    <style>
+        .input__tekst,
+        .input__maks-lengde {
+            margin-bottom: 10px;
+        }
+
+        .button__gjenta {
+            margin-top: 10px;
+        }
+
+        .resultat {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <label for="tekst">Tekst: </label>
+        <input type="text" id="tekst" class="input__tekst">
+    </div>
+    
+    <div>
+        <label for="maksLengde">Maks. lengde: </label>
+        <input type="number" id="maksLengde" class="input__maks-lengde">
+    </div>
+
+    <button id="repeatButton" class="button__gjenta">Gjenta</button>
+
+    <div id="resultat" class="resultat"></div>
+    <script>
+
+        const repeatButton = document.getElementById('repeatButton');
+        const tekstInput = document.getElementById('tekst');
+        const maxLengtsInput = document.getElementById('maksLengde');
+        const resultatDiv = document.getElementById('resultat');
+
+        repeatButton.addEventListener('click', function () {
+            let tekst = tekstInput.value;
+            const maksLengde = parseInt(maxLengtsInput.value, 10);
+
+            while (tekst.length < maksLengde) {
+                tekst += tekst;
+            }
+            if (tekst.length > maksLengde) {
+                tekst = tekst.substring(0, maksLengde);
+            }
+
+            resultatDiv.innerHTML = tekst;
+        });
+
+
+
+
+    </script>
+
+</body>
+
+</html>

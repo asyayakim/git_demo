@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave151</title>
+</head>
+
+<body>
+    <script>
+        
+        function revertTekst(tekst) {
+            let revText = "";
+            for (let i = tekst.length - 1; i >= 0; i--) {
+                revText += tekst.charAt(i);
+            }
+            return revText;
+        }
+       //let result = revertTekst('Terje');
+       // console.log(result);
+
+        function countLetter(tekst) {
+            let number = 0;
+            for (let i = 0; i < tekst.length; i++) {
+                //E or e instead of a...
+                
+                if (tekst.charAt(i) === 'e' || tekst.charAt(i) === 'E') {
+                    number++;
+                }
+            }
+            return number;
+        }
+        let result = countLetter('Terje');
+        console.log(result); 
+
+
+    </script>
+</body>
+
+</html>
