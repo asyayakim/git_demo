@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // function returnList() {
+        //     let list = [];
+        //     let minNumber = 100;
+        //     let maxNumber = 1000;
+        //     while (minNumber <= maxNumber) {
+        //         minNumber += 7;
+        //         list.push(minNumber);
+        //     }
+        //     return list;
+        // }
+        function returnListSum(list) {
+            let sum = 0;
+            for (let i = 0; i < list.length; i++) {
+                sum += list[i]
+            }
+            return sum;
+        }
+
+        let myList = [3, 5, 9, 10];
+        let result = returnListSum(myList);
+        console.log(result);
+    </script>
+</body>
+
+</html>
