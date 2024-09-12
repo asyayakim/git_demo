@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>152D</title>
+</head>
+
+<body>
+    <h1>Paste text for word count.</h1>
+    <textarea id="inputText" placeholder="Paste text here..."></textarea>
+    <br>
+    <button onclick="countWords()">Count words</button>
+    <h2>Result:</h2>
+    <h2>Total words:<span id="totalWords"></span></h2>
+    <ul id="result"></ul>
+    <script>
+
+        function countWords() {
+            let text = document.getElementById('inputText').value;
+            //let words = text.trim().split(' ');
+
+            let cleanText = '';
+            for (let i = 0; i < text.length; i++) {
+                let char = text[i].toLowerCase();
+                if ((char >= 'a' && char <= 'z') || (char >= 'æøå') || (char <= ' '))
+                    cleanText += char;
+            }
+            let words = cleanText.trim().split(' ')
+            document.getElementById('totalWords').textContent = words.length;
+            //document.getElementById('result').innerHTML = words.length;
+            let wordCount = [];
+            let wordUnique = [];
+
+            for (let i = 0; i < words.length; i++) {
+                let word = words[i];
+                let check = wordUnique.indexOf(word);
+
+                if (check === -1) {
+                    //word is not here => add it
+                    wordUnique.push(word);
+                    wordCount.push(1);
+
+                } else {
+                    //word is here, + this word to total amount
+                    wordCount[check]++;
+                }
+                
+            }   
+             
+            let html = '';
+            let i = 0;
+            while (i < wordUnique.length) {
+                html += `<li>${wordUnique[i]}: ${wordCount[i]}</li>`;
+                i++;
+            }
+            
+            document.getElementById('result').innerHTML = html;
+        }    
+    </script>
+</body>
+
+</html>
