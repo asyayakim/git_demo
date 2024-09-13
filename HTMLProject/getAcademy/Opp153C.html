@@ -11,13 +11,14 @@
     <script>
         const alfabet = 'ABCDEFGHIJKLMOPQRSTUVWXYZÆØÅ';
         const secretCode = 'ÅØÆYUOIEABCDFGHJKLMPQRSTVWXZ';
+
         
-        function encrypt(text) {
+        function encryptDecrypt(text, alfabet, secretCode) {
             let encryptedText = '';            
             for (let i = 0; i < text.length; i++) {
                 let char = text[i];
                 let index = alfabet.indexOf(char.toUpperCase());
-                //encryptedText += index === -1 ? char : secretCode[index];
+                //encryptedText += index === -1 ? char.toUpperCase() : secretCode[index];
                 if (index === -1) {
                     encryptedText += char;
                 } else {
@@ -26,22 +27,42 @@
             }
             return encryptedText;
         }
-        function decrypt(text) {
-            let decryptedText = '';            
-            for (let i = 0; i < text.length; i++) {
-                let char = text[i];
-                let index = secretCode.indexOf(char.toUpperCase());
-                //decryptedText += index === -1 ? char : secretCode[index];
-                if (index === -1) {
-                    decryptedText += char;
-                } else {
-                    decryptedText += alfabet[index];
-                }
-            }
-            return decryptedText;
+        function encrypt(text){
+            return encryptDecrypt(text, alfabet, secretCode);
         }
-        let encryptText = 'terje' 
-        let encryptedText= encrypt(encryptText);
+        function decrypt(encryptedText){
+            return encryptDecrypt(encryptedText, secretCode, alfabet);
+        }
+        // function encrypt(text) {
+        //     let encryptedText = '';            
+        //     for (let i = 0; i < text.length; i++) {
+        //         let char = text[i];
+        //         let index = alfabet.indexOf(char.toUpperCase());
+        //         //encryptedText += index === -1 ? char.toUpperCase() : secretCode[index];
+        //         if (index === -1) {
+        //             encryptedText += char;
+        //         } else {
+        //             encryptedText += secretCode[index];
+        //         }
+        //     }
+        //     return encryptedText;
+        // }
+        // function decrypt(text) {
+        //     let decryptedText = '';            
+        //     for (let i = 0; i < text.length; i++) {
+        //         let char = text[i];
+        //         let index = secretCode.indexOf(char.toUpperCase());
+        //         //decryptedText += index === -1 ? char.toUpperCase() : alfabet[index];
+        //         if (index === -1) {
+        //             decryptedText += char;
+        //         } else {
+        //             decryptedText += alfabet[index];
+        //         }
+        //     }
+        //     return decryptedText;
+        // }
+        let someText = 'terje' 
+        let encryptedText= encrypt(someText);
         let decryptedText= decrypt(encryptedText);
         console.log(encryptedText);
         console.log(decryptedText);
