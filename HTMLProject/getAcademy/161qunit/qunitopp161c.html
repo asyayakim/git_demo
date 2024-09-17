@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<title>QUnit</title>
+<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.22.0.css">
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="logic.js"></script>
+    <script src="https://code.jquery.com/qunit/qunit-2.22.0.js"></script>
+    <script>
+        QUnit.test('correct email', function (assert) {            
+            assert.true(isEmail('Asu@.no'));
+        });
+        QUnit.test('without @', function (assert) {            
+            assert.false(isEmail('Asu.no'));
+        });
+        QUnit.test('without .', function (assert) {            
+            assert.false(isEmail('Asubp@mjno'));
+        });
+
+    </script>
+</body>
+
+</html>

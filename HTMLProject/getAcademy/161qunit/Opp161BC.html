@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Is it an email address or not?</h1>
+    <textarea id="inputText" placeholder="Type here..."></textarea>
+    <br>
+    <button onclick="checkEmail()">Check text</button>
+    <h2>Verdict:</h2>
+    <ul id="result"></ul>
+
+    <script>
+        function isEmail(text) {
+            if (text.includes('@') && text.includes('.')) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function checkEmail() {
+            var text = document.getElementById("inputText").trim().value; 
+            var resultElement = document.getElementById("result"); 
+
+            if (isEmail(text)) {
+                resultElement.innerHTML = "<li>Yes, this looks like an email address.</li>";
+            } else {
+                resultElement.innerHTML = "<li>No, this doesn't look like an email address.</li>";
+            }
+        }
+    </script>
+</body>
+</html>
