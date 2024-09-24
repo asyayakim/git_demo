@@ -19,10 +19,6 @@ th {
     border: 1px splid rgb(69, 69, 135);
 }
 
-tr:ntn-child(even) {
-
-    background: rgb(237, 224, 207);
-}
 
 #checkbox {
     align-items: center;
