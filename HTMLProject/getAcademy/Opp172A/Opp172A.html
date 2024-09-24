@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h2>My To-Do List</h2>
+    <table id="tasksTable">
+    </table>
+    <p>
+        <input id="taskDescription" type="text" placeholder="Type task"/> 
+        <input id="responsible" type="text" placeholder="Type responsible person"/>
+        <button onclick="addTask()">Add task</button>
+        <select name="selectResponsible" id="selectResponsablePerson">
+            <option value="">--Select by responsible:--</option>
+            <option type="text" value="${task.responsible}"></option>
+          </select>
+    <div class="app">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

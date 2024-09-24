@@ -1,0 +1,41 @@
+table,
+tr,
+td,
+th {
+    border: 1px solid lightblue;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+.td,
+th {
+    padding: 15px;
+    background-color: lightblue;
+}
+
+th {
+    
+    color: rgb(0, 0, 0);
+    border: 1px splid rgb(69, 69, 135);
+}
+
+tr:ntn-child(even) {
+
+    background: rgb(237, 224, 207);
+}
+
+#checkbox {
+    align-items: center;
+    
+}
+label {
+   
+    font-size: 1rem;
+    padding-right: 10px;
+  }
+  
+  select {
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    padding: 2px 5px;
+  }
