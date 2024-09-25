@@ -1,14 +1,22 @@
 //model
 var tasks = [
+    { description: "Buy milk", isDone: false, responsible: 'John', doneDate: '' },
     { description: "Buy food", isDone: true, responsible: 'Tom', doneDate: new Date().toLocaleDateString() },
     { description: "Buy clothes", isDone: false, responsible: 'John', doneDate: '' },
 ];
-//controller
 var taskDescriptionInput = document.getElementById('taskDescription')
 var taskResponsibleInput = document.getElementById('responsible')
+var taskTable = document.getElementById('tasksTable')
+var selectResponsiblePerson = document.getElementById('selectResponsiblePerson');
+var sortAscending = true;
+
+var currentPage = 1; 
+var tasksPerPage = 3;
+var pagination = document.getElementById('pagination').innerHTML
+//controller
 function addTask() {
     if (taskDescriptionInput.value == '' || taskResponsibleInput.value == '') {
-        alert ("Specify the task and who is responsible in both boxes")
+        alert("Specify the task and who is responsible in both boxes")
         resetValues();
         show();
         return;
@@ -26,9 +34,10 @@ function addTask() {
     }
 }
 //view
-var taskTable = document.getElementById('tasksTable')
+
 show();
 function show() {
+    const filterValue = selectResponsiblePerson.value.toLowerCase();
     let html = `
        <tr>
             <th>Exercise</th>
@@ -37,10 +46,17 @@ function show() {
             <th>Done date</>
             <th></th>
         </tr>`;
+    const uniqueResponsibles = new Set();
+
     for (let i = 0; i < tasks.length; i++) {
-        html += creatHtmlRow(i);
+        if (tasks[i].responsible.toLowerCase().includes(filterValue)) {
+            html += creatHtmlRow(i);
+        }
+        uniqueResponsibles.add(tasks[i].responsible);
     }
+
     tasksTable.innerHTML = html;
+    updateDropdown(uniqueResponsibles);
 }
 function creatHtmlRow(i) {
     const task = tasks[i];
@@ -48,7 +64,7 @@ function creatHtmlRow(i) {
     if (!task.editMode) return `<tr>
     <td>${task.description}</td>
     <td>${task.responsible}</td>
-    <td><input id="checkbox" onchange="changeIsDone(this,${i})" type="checkbox" ${checkedHtml} /></td>
+    <td><input id="checkbox${i}" onchange="changeIsDone(this,${i})" type="checkbox" ${checkedHtml} /></td>
     <td>${task.doneDate || 'Not done yet'}</td>
     <td>
         <button onclick="deleteTask(${i})">Delete</button>
@@ -64,21 +80,43 @@ function creatHtmlRow(i) {
     <td>
         <button onclick="updateTask(${i})">save</button>
     </td>
-    </tr>
-        `;
+    </tr> `;
+} 
 
+
+function toggleSortOrder() {
+    sortAscending = !sortAscending; 
+    sortByDoneDate(); 
 }
 
+function sortByDoneDate() {
+    tasks.sort((a, b) => {
+        const dateA = a.doneDate ? new Date(a.doneDate) : null;
+        const dateB = b.doneDate ? new Date(b.doneDate) : null;
+        // return (dateB === null) - (dateA === null) ||
+        //     dateA - dateB;
+        if (!dateA && !dateB) return 0;
+        if (!dateA) return sortAscending ? 1 : -1;
+        if (!dateB) return sortAscending ? -1 : 1;
+        return sortAscending ? dateA - dateB : dateB - dateA;
 
+    });
+    show();
+}
 
+function updateDropdown(uniqueResponsibles) {
+
+    selectResponsiblePerson.innerHTML = '<option value="">--Select Responsible:--</option>'; // Reset dropdown options
+    uniqueResponsibles.forEach(function (responsible) {
+        const option = document.createElement('option');
+        option.value = responsible;
+        option.textContent = responsible;
+        selectResponsiblePerson.appendChild(option);
+    });
+}
 function changeIsDone(checkbox, index) {
-    const isDone = checkbox.checked;
-    tasks[index].isDone = isDone;
-    if (isDone) {
-        tasks[index].doneDate = new Date().toLocaleDateString();
-    } else {
-        tasks[index].doneDate = '';
-    }
+    tasks[index].isDone = checkbox.checked;
+    tasks[index].doneDate = checkbox.checked ? new Date().toLocaleDateString() : '';
     show();
 }
 function deleteTask(index) {
@@ -90,17 +128,11 @@ function editTask(index) {
     show();
 }
 function updateTask(index) {
-    const descriptionId = `editDescription${index}`;
-    const responsibleId = `editResponsible${index}`;
-    tasks[index].description = document.getElementById(descriptionId).value;
-    tasks[index].responsible = document.getElementById(responsibleId).value;
+    tasks[index].description = document.getElementById(`editDescription${index}`).value;
+    tasks[index].responsible = document.getElementById(`editResponsible${index}`).value;
     tasks[index].editMode = false;
     show();
-}
-function resetValues() {
+} function resetValues() {
     taskDescriptionInput.value = '';
     taskResponsibleInput.value = '';
-
 }
-
-
