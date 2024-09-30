@@ -3,6 +3,8 @@ var tasks = [
     { description: "Buy milk", isDone: false, responsible: 'John', doneDate: '' },
     { description: "Buy food", isDone: true, responsible: 'Tom', doneDate: new Date().toLocaleDateString() },
     { description: "Buy clothes", isDone: false, responsible: 'John', doneDate: '' },
+    { description: "Sell milk", isDone: false, responsible: 'Chris', doneDate: '' },
+    { description: "Buy time", isDone: false, responsible: 'Jo', doneDate: '' },
 ];
 var taskDescriptionInput = document.getElementById('taskDescription')
 var taskResponsibleInput = document.getElementById('responsible')
@@ -40,23 +42,55 @@ function show() {
     let html = `
        <tr>
             <th>Exercise</th>
-            <th>Responsible</>
+            <th>Responsible</th>
             <th>Done</th>
-            <th>Done date</>
+            <th>Done date</th>
             <th></th>
         </tr>`;
-    const uniqueResponsibles = new Set();
 
-    for (let i = 0; i < tasks.length; i++) {
-        if (tasks[i].responsible.toLowerCase().includes(filterValue)) {
-            html += creatHtmlRow(i);
+    // Initialize counters
+    var totalTasks = 0;
+    var uniqueResponsibles = {};
+
+    // First, count the tasks that match the filter to calculate total pages
+    for (var i = 0; i < tasks.length; i++) {
+        if (filterValue === 'all' || filterValue === '' || tasks[i].responsible.toLowerCase().indexOf(filterValue) > -1) {
+            totalTasks++;
+            uniqueResponsibles[tasks[i].responsible] = true; // Collect unique responsibles
         }
-        uniqueResponsibles.add(tasks[i].responsible);
+    }
+
+    // Calculate total pages
+    var totalPages = Math.ceil(totalTasks / tasksPerPage);
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    var displayedTasks = 0;
+    var taskCounter = 0;
+    for (var i = 0; i < tasks.length; i++) {
+        if (filterValue === 'all' || filterValue === '' || tasks[i].responsible.toLowerCase().indexOf(filterValue) > -1) {
+            taskCounter++;
+            uniqueResponsibles[tasks[i].responsible] = true;
+            if (taskCounter > (currentPage - 1) * tasksPerPage && displayedTasks < tasksPerPage) {
+                html += creatHtmlRow(i); // Only add rows that fit on the current page
+                displayedTasks++;
+            }
+        }
     }
 
     tasksTable.innerHTML = html;
-    updateDropdown(uniqueResponsibles);
+
+    // Update the dropdown with unique responsibles
+    selectResponsiblePersonDropdown(uniqueResponsibles);
+    // updateDropdownFromObject(uniqueResponsibles);
+
+    // Pagination controls
+    document.getElementById('pagination').innerHTML = `
+        <button onclick="previousPage()" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
+        <span> Page ${currentPage} of ${totalPages} </span>
+        <button onclick="nextPage()" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
+    `;
 }
+
 function creatHtmlRow(i) {
     const task = tasks[i];
     const checkedHtml = task.isDone ? 'checked="checked"' : '';
@@ -79,8 +113,19 @@ function creatHtmlRow(i) {
     <td>
         <button onclick="updateTask(${i})">save</button>
     </td>
+    
     </tr> `;
+    
 } 
+function nextPage() {
+    currentPage++;
+    show();
+}
+
+function previousPage() {
+    currentPage--;
+    show();
+}
 
 function toggleSortOrder() {
     sortAscending = !sortAscending; 
@@ -101,17 +146,29 @@ function sortByDoneDate() {
     });
     show();
 }
+function selectResponsiblePersonDropdown(uniqueResponsibles) {
+    selectResponsiblePerson.innerHTML = '<option value="">--Select Responsible--</option>'; 
+    
+    // Add the 'Select All' option
+    selectResponsiblePerson.innerHTML += '<option value="all">Select All</option>';
 
-function updateDropdown(uniqueResponsibles) {
-
-    selectResponsiblePerson.innerHTML = '<option value="">--Select Responsible:--</option>'; // Reset dropdown options
-    uniqueResponsibles.forEach(function (responsible) {
-        const option = document.createElement('option');
+    // Loop through the uniqueResponsibles object and create an option for each responsible person
+    for (var responsible in uniqueResponsibles) {
+        var option = document.createElement('option');
         option.value = responsible;
         option.textContent = responsible;
         selectResponsiblePerson.appendChild(option);
-    });
+    }
 }
+// function updateDropdownFromObject(uniqueResponsibles) {
+//     selectResponsiblePerson.innerHTML = '<option value="">--Select Responsible:--</option>'; // Reset dropdown options
+//     for (var responsible in uniqueResponsibles) {
+//         var option = document.createElement('option');
+//         option.value = responsible;
+//         option.textContent = responsible;
+//         selectResponsiblePerson.appendChild(option);
+//     }
+// }
 
 function changeIsDone(checkbox, index) {
     tasks[index].isDone = checkbox.checked;
