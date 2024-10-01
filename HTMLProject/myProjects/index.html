@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h2>Vote here</h2>
+    <div id ="app"></div>
+    <p>Type your email:</p>
+    <input id="emailAddress" type="text" placeholder="Type your email..."/> <p>
+    </p>
+    <p>Select your candidate:</p>
+    
+    <select name="selectResponsible" id="selectResponsiblePerson">
+        <option value="">--Select your candidate:--</option>
+        <option value="candidate1">--Candidate 1--</option>
+        <option value="candidate2">--Candidate 2--</option>
+        <option value="candidate3">--Candidate 3--</option>
+      </select>
+      <br><br>
+      <button onclick="submitVote()">Vote</button>
+      <button onclick="resetData()">Refresh</button>
+      <h2>Winning candidates :</h2>
+      <p>1st choice: <span id="candidate1Count">0</span> votes</p>
+    <p>2nd choice: <span id="candidate2Count">0</span> votes</p>
+    <p>3rd choice: <span id="candidate3Count">0</span> votes</p>
+    <script src="logic.js"></script>
+</body>
+
+</html>
