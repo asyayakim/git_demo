@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave123B</title>
+    <style>
+        #colorSpace {
+            width: 100px;
+            height: 200px;
+            margin: 20px;
+            background-color: green;
+            display: flex;
+        }
+        #sliderValue {
+            font-size: 20px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div id="colorSpace"></div>
+        <input id="colorValue" onchange="changeColor()" type="range" min="0" step="1" max="100" /><br />
+        <span id="sliderValue">50</span><br />
+    </div>
+    <script>
+        function changeColor() {
+            const value = document.getElementById('colorValue').value;
+            const colorSpace = document.getElementById('colorSpace');
+            const sliderValue = document.getElementById('sliderValue');
+
+
+            if (value < 30) {
+                colorSpace.style.backgroundColor = 'red';
+            } else if (value < 70) {
+                colorSpace.style.backgroundColor = 'green';
+            } else if (value > 70) {
+                colorSpace.style.backgroundColor = 'yellow';
+            }
+            sliderValue.textContent = value;
+            document.getElementById('textSize').style.backgroundColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+
+        }
+    </script>
+</body>
+
+</html>

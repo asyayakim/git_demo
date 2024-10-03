@@ -18,7 +18,6 @@
         .selected {
             background-color: yellow;
         }
-
     </style>
 </head>
 
@@ -39,6 +38,12 @@
         const gridSize = 8;
 
         showBoard();
+        function addEmptyDivs(count) {
+            const emptyDiv = '<div></div>';
+            const board = document.getElementById('board');
+            board.innerHTML = ''; // Clear the existing content
+            board.innerHTML += emptyDiv.repeat(count);
+        }
 
         function showBoard() {
             // del 1: alle rutene som ikke er valgt før den valgte

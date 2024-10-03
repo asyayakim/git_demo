@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Layout</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        div.page {
+            display: grid;
+            height: 100vh;
+            grid-template-columns: 200fr 800fr;
+            grid-template-rows: 20px 10fr 20px;
+            grid-template-areas: 'header header'
+                                 'menu mainContent'
+                                 'footer footer';
+        }
+
+        div.header {
+            background-color: lightgray;
+            grid-area: header;
+        }
+
+        div.menu {
+            background-color: lightblue;
+            grid-area: menu;
+        }
+
+        div.mainContent {
+            background-color: lightgreen;
+            grid-area: mainContent;
+        }
+
+        div.footer {
+            background-color: lightpink;
+            grid-area: footer;
+        }
+
+        @media only screen and (max-width: 400px) {
+            div.page {
+                grid-template-columns: 1fr;
+                grid-template-rows: 20px 1fr 4r 20px;
+                grid-template-areas: 'header'
+                                     'menu'
+                                     'mainContent'
+                                     'footer';
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="header">Header</div>
+        <div class="menu">Menu</div>
+        <div class="mainContent">MainContent</div>
+        <div class="footer">Footer</div>
+    </div>
+</body>
+
+</html>

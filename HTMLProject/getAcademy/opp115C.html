@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 400px;
+            align-items: center;
+        }
+
+        div.name {
+            float: left;
+            width: 55%;
+        }
+
+        div.kontrollene {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h3>Mitt skjema</h3>
+        <div class="name">
+            First Name
+        </div>
+        <div class="kontrollene">
+            <input type="text" id="fname">
+        </div>
+        <div class="name">
+            Last Name
+        </div>
+        <div class="kontrollene">
+            <input type="text" id="lname">
+        </div>
+        <div class="name">
+            En til hundre
+        </div>
+        <div class="kontrollene">
+            <input type="range" id="zero2hundred">
+        </div>
+        <div class="name">
+            Skriv inn et tall
+        </div>
+        <div class="kontrollene">
+            <input type="number" id="lname">
+        </div>
+        <div class="name">
+            Favorittspråk:
+        </div>
+        <div class="kontrollene">
+            <input type="radio" name="fav_language" id="html">
+            <label for="html">HTML</label>
+            <br />
+            <input type="radio" name="fav_language" id="css">
+            <label for="css">CSS</label>
+            <br />
+            <input type="radio" name="fav_language" id="js">
+            <label for="js">JavaScript</label>
+        </div>
+    </div>
+</body>
+
+</html>

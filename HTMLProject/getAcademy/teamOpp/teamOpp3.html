@@ -130,7 +130,13 @@
     }
     return `<button onclick="${onClickFunction}">${buttonText}</button>`;
 }
-
+// function getButtonHTML(currentTowerIndex, targetTowerIndex, onClickFunction, buttonText) {
+//         //show button if the move is valid and not on the same tower
+//         if (currentTowerIndex === targetTowerIndex || !canMoveDisk(currentTowerIndex, targetTowerIndex, getTopDiskSize(currentTowerIndex))) {
+//             return ''; //hide button if trying to move to the same tower or if move is invalid
+//         }
+//         return <button onclick="${onClickFunction}">${buttonText}</button>;
+//     }
 //can move disc?
     function canMoveDisk(fromTowerIndex, toTowerIndex, diskSize) {
         if (getTopDiskSize(fromTowerIndex) !== diskSize) {

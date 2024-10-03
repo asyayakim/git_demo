@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave116A</title>
+</head>
+
+<body onload="show1()">
+
+    <div id="Numbers"></div>
+    
+    <script>
+        function show1() {
+            document.getElementById('Numbers').innerHTML = /*HTML*/`
+                <h1>1</h1>
+                <button onclick="show2()">Øke med én</button>
+                <button onclick="show2()">Doble</button>
+            `;
+        }
+    
+        function show2() {
+            document.getElementById('Numbers').innerHTML = /*HTML*/`
+                <h1>2</h1>
+                <button onclick="show3()">Øke med én</button>
+                <button onclick="show4()">Doble</button>
+            `;
+        }
+    
+        function show3() {
+            document.getElementById('Numbers').innerHTML = /*HTML*/`
+                <h1>3</h1>
+                <button onclick="show4()">Øke med én</button>
+                <button onclick="show6()">Doble</button>
+            `;
+        }
+    
+        function show4() {
+            document.getElementById('Numbers').innerHTML = /*HTML*/`
+                <h1>4</h1>
+                <button onclick="show5()">Øke med én</button>
+                <button onclick="show8()">Doble</button>
+            `;
+        }
+    
+        function show5() {
+            document.getElementById('Numbers').innerHTML = /*HTML*/`
+                <h1>5</h1>
+                <button onclick="show6()">Øke med én</button>
+                <button onclick="show10()">Doble</button>
+            `;
+        }
+    
+        function show6() {
+            document.getElementById('Numbers').innerHTML = /*HTML*/`
+                <h1>6</h1>
+                <button onclick="show7()">Øke med én</button>
+                <button onclick="show12()">Doble</button>
+            `;
+        }
+    
+        function show7() {
+            document.getElementById('Numbers').innerHTML = /*HTML*/`
+                <h1>7</h1>
+                <button onclick="show8()">Øke med én</button>
+                <button onclick="show14()">Doble</button>
+            `;
+        }
+    
+        function show8() {
+            document.getElementById('Numbers').innerHTML = /*HTML*/`
+                <h1>8</h1>
+                <button onclick="show9()">Øke med én</button>
+                <button onclick="show16()">Doble</button>
+            `;
+        }
+        // mulig a forlenge
+    </script>
+    
+    </body>
+    </html>
+    
+
+<!--Test with multiplication-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave116A</title>
+</head>
+<body>
+    <div id="Numbers"></div>
+    <h3>Change number</h3>
+
+    <h1 id="numberDisplay">1</h1>
+    <button onclick="increaseByOne()">Øke med én</button>
+    <button onclick="doubleNumber()">Doble</button>
+
+    <script>
+        let currentNumber = 1;
+
+        function updateDisplay() {
+            document.getElementById('numberDisplay').textContent = currentNumber;
+        }
+
+        function increaseByOne() {
+            currentNumber += 1;
+            updateDisplay();
+        }
+
+        function doubleNumber() {
+            currentNumber *= 2;
+            updateDisplay();
+        }
+
+        updateDisplay();
+    </script>
+</body>
+</html>

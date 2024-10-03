@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave171E</title>
+</head>
+
+<body>
+    <h1>Is it an email address or not?</h1>
+    <textarea id="inputText" placeholder="Type here..."></textarea>
+    <br>
+    <button onclick="showResult()">Check text</button>
+    <h2>Verdict:</h2>
+    <ul id="result"></ul>
+
+    <script>
+        function countText(text) {
+            let words = text.toLowerCase().split(' ');
+            let wordCounts = {};
+            for (let word of words) {
+                if (word) {
+                    
+                    if (wordCounts[word]) {
+                        wordCounts[word]++;
+                    } else {
+                        wordCounts[word] = 1;
+                    }
+                }
+                
+            }
+            return wordCounts;
+        }
+        
+        function showResult() {
+            const text = document.getElementById("inputText").value;
+            const wordCounts = countText(text);
+            const resultElement = document.getElementById("result");
+            resultElement.innerHTML = '';
+            for (let word in wordCounts) {
+                resultElement.innerHTML += `<li>${word}: ${wordCounts[word]}</li>`;
+            }
+        }
+    </script>
+</body>
+
+</html>

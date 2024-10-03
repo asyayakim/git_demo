@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dato Velger</title>
+    <style>
+        #DayMain {
+            display: flex;
+            align-items: center;
+        }
+
+        #Day {
+            font-size: 300%;
+        }
+
+        .day-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="DayMain">
+        <div id="Day">1</div>
+        <div>
+            <button onclick="selectDay(2)">▲</button>
+            <button onclick="selectDay(0)" disabled>▼</button>
+        </div>
+        <script>
+            function createNumberSelector(currentNumber, minNumber, maxNumber) {
+                let upButtonDisabled = currentNumber >= maxNumber ? 'disabled' : '';
+                let downButtonDisabled = currentNumber <= minNumber ? 'disabled' : '';
+
+                // Generer HTML-koden
+                let html = /*html*/`
+        <div id="DayMain" style="display: flex;align-items: center;">
+            <div id="Day" style="font-size: 300%;">${currentNumber}</div>
+            <div style="display: flex; flex-direction: column;align-items: flex-start;">
+                <button onclick="selectDay(${currentNumber + 1})" ${upButtonDisabled}>▲</button>
+                <button onclick="selectDay(${currentNumber - 1})" ${downButtonDisabled}>▼</button>
+            </div>
+        </div>
+    `;
+                return html;
+            }
+
+        </script>
+    </div>
+</body>
+
+</html>

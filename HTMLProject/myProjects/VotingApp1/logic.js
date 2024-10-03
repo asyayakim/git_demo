@@ -35,5 +35,4 @@ function resetData() {
     localStorage.clear(); 
     location.reload();    
 }
-
 updateResults();

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave116C</title>
+    <style>
+        body {
+            padding: 20px;
+            background-color: lightblue;
+        }
+
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 10px rgb(81, 126, 163)
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #1f6b97;
+            color: white;
+        }
+
+        button:hover {
+            background-color: lightcoral;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="content">
+            <p>Du er utenfor en leilighet.</p>
+            <button onclick="enterApartment()">Gå inn</button>
+        </div>
+    </div>
+
+    <script>
+        function enterApartment() {
+            document.getElementById('content').innerHTML = /*html*/`
+                <p>Du er i gangen.</p>
+                <button onclick="exitApartment()">Gå ut</button>
+                <button onclick="enterRoom('stua')">Gå inn i stua</button>
+                <button onclick="enterRoom('badet')">Gå inn på badet</button>
+                <button onclick="enterRoom('kjøkkenet')">Gå inn på kjøkkenet</button>
+            `;
+        }
+
+        function exitApartment() {
+            document.getElementById('content').innerHTML = /*html*/`
+                <p>Du er utenfor en leilighet.</p>
+                <button onclick="enterApartment()">Gå inn</button>
+            `;
+        }
+
+        function goToGang() {
+            enterApartment();
+        }
+
+        function enterRoom(room) {
+            //notsure
+            let roomName = room;
+            let buttons = `<button onclick="goToGang()">Gå tilbake til gangen</button>`;
+
+            if (room === 'stua') {
+                buttons += `<button onclick="enterRoom('kjøkkenet')">Gå inn på kjøkkenet</button>`;
+            } else if (room === 'kjøkkenet') {
+                buttons += `<button onclick="enterRoom('stua')">Gå inn i stua</button>`;
+
+            }
+
+            document.getElementById('content').innerHTML = `
+        <p>Du er i ${roomName}.</p>
+        ${buttons}
+        `;
+        }
+    </script>
+</body>
+
+</html>

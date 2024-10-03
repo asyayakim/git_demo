@@ -4,16 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Opp121A</title>
 </head>
 
 <body>
     <button onclick="addCircle(30)">Legg til sirkel med x=30</button>
     <button onclick="addCircle(70)">Legg til sirkel med x=70</button>
+    <button onclick="addRectangleFromInput()">Legg til firkant fra input</button>
     <br />
     <input type="number" id="xInput" placeholder="Enter x value">
     <input type="number" id="yInput" placeholder="Enter y value">
-    <input type="text" id="ColorInput" placeholder="Enter background color (e.g., lightgray)">
+    <select id="backgroundSelect">
+        <option value="red">Red</option>
+        <option value="green">Green</option>
+        <option value="blue">Blue</option>
+        <option value="gray">Gray</option>
+    </select>
+    <select id="foregroundSelect">
+        <option value="yellow">Yellow</option>
+        <option value="pink">Pink</option>
+        <option value="purple">Purple</option>
+        <option value="orange">Orange</option>
+    </select>
     <button onclick="addCircleFromInput()">Legg til sirkel fra input</button>
 
     <svg id="mySvg" width="800" height="600" style="background-color: lightgray;">
@@ -22,25 +34,43 @@
     <script>
         function addCircle(x) {
             document.getElementById('mySvg').innerHTML = /*HTML*/`
-    
-          <circle cx="${x}" cy="100" r="40" stroke="green" stroke-width="4" fill="yellow" />            
-      `;
+                <circle cx="${x}" cy="100" r="40" stroke="green" stroke-width="4" fill="yellow" />            
+            `;
         }
-        function addCircleFromInput() {
-            document.getElementById('mySvg').style.backgroundColor = 
-                document.getElementById('ColorInput').value || 'lightgray';
+
+        function addRectangleFromInput() {
+            // Set the background color
+            document.getElementById('mySvg').style.backgroundColor =
+                document.getElementById('backgroundSelect').value || 'lightgray'; // Default background color
+
+            // Set the rectangle
             document.getElementById('mySvg').innerHTML = /*HTML*/`
-            <circle cx="${document.getElementById('xInput').value || 50}" 
-                    cy="${document.getElementById('yInput').value || 100}" 
-                    r="40" 
-                    stroke="green" 
-                    stroke-width="4" 
-                    fill="yellow" />
-                    
-        `;
+                <rect x="${document.getElementById('xInput').value || 50}" 
+                      y="${document.getElementById('yInput').value || 100}" 
+                      width="100" 
+                      height="50" 
+                      stroke="green" 
+                      stroke-width="4" 
+                      fill="${document.getElementById('foregroundSelect').value || 'yellow'}" />
+            `;
+        }
+
+        function addCircleFromInput() {
+            document.getElementById('mySvg').style.backgroundColor =
+                document.getElementById('backgroundSelect').value || 'lightgray';
+
+            document.getElementById('mySvg').innerHTML = /*HTML*/`
+                <circle cx="${document.getElementById('xInput').value || 50}" 
+                        cy="${document.getElementById('yInput').value || 100}" 
+                        r="40" 
+                        stroke="green" 
+                        stroke-width="4" 
+                        fill="${document.getElementById('foregroundSelect').value || 'yellow'}" />
+            `;
         }
     </script>
 
 </body>
 
 </html>
+

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <button onclick="weatherSandefjord()">Sandefjord</button>
+    <button onclick="weatherLavrik()">Larvik</button>
+    <div id="weather"></div>
+<script>
+    function rainToSunshine() {
+        document.getElementById('weather').innerHTML = 'sol';
+        document.getElementById('weather').innerHTML = 'not-allowed';
+    }
+
+    function weatherSandefjord() {
+        document.getElementById('app').innerHTML = /*html*/`
+        <button disabled>Sandefjord</button>
+        <button onclick="weatherLavrik()">Larvik</button>
+        <div id="weather">sol</div>
+        `;
+    }
+    function weatherLavrik() {
+        document.getElementById('app').innerHTML = /*html*/`
+        <button onclick="">Sandefjord</button>
+        <button onclick="weatherLavrik()">Larvik</button>
+        <div id="weather">regn</div>
+        `;
+    }
+    
+</script>
+</body>
+
+</html>

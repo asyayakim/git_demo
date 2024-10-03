@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Oppgave121B</title>
     <style>
-        table{
-    border-collapse: collapse;
-}
+        table {
+            border-collapse: collapse;
+        }
 
-td, th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
+        td,
+        th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
-th {
-    background-color: #04AA6D;
-    color: white;
-}
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
     </style>
 </head>
+
 <body>
-    <table id="myTable"> 
+    <table id="myTable">
         <tr>
             <th>Dag</th>
             <th>Time</th>
@@ -53,3 +56,61 @@ th {
     </table>
 </body>
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabell Eksempel</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table id="myTable">
+        <tr>
+            <th>Dag</th>
+            <th>Time</th>
+            <th>Minutt</th>
+            <th>Temperatur</th>
+        </tr>
+    </table>
+
+    <script>
+        function addRow(tag, dag, time, minutt, temperatur) {
+            document.getElementById('myTable').innerHTML +=
+                `<tr>
+                    <${tag}>${dag}</${tag}>
+                    <${tag}>${time}</${tag}>
+                    <${tag}>${minutt}</${tag}>
+                    <${tag}>${temperatur}</${tag}>
+                </tr>`;
+        }
+        addRow('td', 1, 10, 0, 5);
+        addRow('td', 1, 10, 15, 6);
+        addRow('td', 1, 10, 30, 7);
+    </script>
+
+</body>
+
+</html>

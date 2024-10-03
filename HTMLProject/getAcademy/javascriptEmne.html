@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*#terjeisTag1, #terjeisTag2{
+            background-color: blanchedalmond;
+            width: 500px;
+             style does not working
+            #terjeiTag2{
+                background-color: aquamarine;
+            }*/
+            div.color1{
+                background-color: blanchedalmond;
+            }
+            div.color2{
+                background-color: aquamarine;
+            }
+            div.card{
+                background-color: lightblue;
+                width: 500px;
+                margin: 10px;
+            }
+            div.header{
+                text-align: center;
+                font-size: 200%;
+                padding: 10px;
+            }
+    </style>
+</head>
+<body>
+    <h3>Introduksjon til Javascript</h3>
+    <ol>
+        <li>Finne frem til en tag</li>
+        <li>Endre HTML</li>
+        <li>Trekke ut som funcsjon</li>
+        <li>Kalle alle funcsjoner</li>
+    </ol>
+    <h3>Saa bruker vi JavaScript til dette</h3>
+    <ol>
+        <li>Aapne og lukke</li>
+        <li>Velge hode</li>
+    </ol>
+    
+    <div class="card">
+        <div class="header color1" onclick="show1()">Overskrift A</div>
+        <div id="terjesTag1"></div>
+    </div>
+    <div class="card">
+        <div class="header color2" onclick="show2()">Overskrift B</div>
+        <div id="terjesTag2"></div>
+    </div>
+
+    <h3>bla opp og ned</h3>
+    <div style="display:flex;" id="numberAndButtons">
+    </div>
+    
+    <script>
+        showNumber1();
+        function showNumber1(){
+            document.getElementById('numberAndButtons').innerHTML = /*HTML*/`
+            <button onclick="showNumber4()">
+                ◀
+            </button>
+            <div>
+                <img src="img/head1.png"/>
+            </div>
+            <button onclick="showNumber2()">
+            ▶
+            </button>`;
+        }
+        function showNumber2(){
+            document.getElementById('numberAndButtons').innerHTML = /*HTML*/`
+            <button onclick="showNumber1()">
+                ◀
+            </button>
+            <div>
+                <img src="img/head2.png"/>
+            </div>
+            <button onclick="showNumber3()">
+            ▶
+            </button>`;
+        }
+        function showNumber3(){
+            document.getElementById('numberAndButtons').innerHTML = /*HTML*/`
+            <button onclick="showNumber2()">
+                ◀
+            </button>
+            <div>
+                <img src="img/head3.png"/>
+            </div>
+            <button onclick="showNumber4()">
+            ▶
+            </button>`;
+        }
+        function showNumber4(){
+            document.getElementById('numberAndButtons').innerHTML = /*HTML*/`
+            <button onclick="showNumber3()">
+                ◀
+            </button>
+            <div>
+                <img src="img/head4.png"/>
+            </div>
+            <button onclick="showNumber1()">
+            ▶
+            </button>`;
+        }
+        function show1(){
+            blankAll()
+            document.getElementById('terjesTag1').innerHTML= /*HTML*/`
+            <h3>Hey</h3>
+            aaaa
+            `;
+        }
+        function show2(){
+            blankAll();
+            document.getElementById('terjesTag2').innerHTML= /*HTML*/`
+            <h3>Hey</h3>
+            aaaa
+            `;
+        }
+
+        function blankAll(){
+            document.getElementById('terjesTag1').innerHTML= ``;
+            document.getElementById('terjesTag2').innerHTML= ``;
+        }
+
+    </script>
+
+
+</body>
+</html>
