@@ -3,6 +3,6 @@ function selectDate(event) {
 }
 
 function goBackToMovies() {
-    model.app.currentPage = 'search';
+    model.app.currentPage = 'selectDate';
     updateView();
 }

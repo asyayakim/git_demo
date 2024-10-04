@@ -17,9 +17,7 @@ function updateViewSelectDate() {
         </div>
             <div>
     <label for="selectLanguage">Select your language: </label>
-    <button>${movie.movieLanguage[0]}</button>
-    <button>${movie.movieLanguage[1]}</button>
-    <button>${movie.movieLanguage[2]}</button>
+    ${generateLanguageButtons()}
         </div>
         <div id='selectTime'></div>
         <div id='selectSittingPlace'></div>
@@ -35,18 +33,24 @@ function generateTimeButtons() {
     let buttonsHtml = '';
     for (let i = 0; i < model.movieShowTime.length; i++) {
         const time = model.movieShowTime[i];
-        buttonsHtml += `<button>${time}</button>`;
+        buttonsHtml += `<button onclick="updateViewOrderPage('${model.inputs.selectDay.movieLanguage}', '${time}')">${time}</button>`;
     }
     return buttonsHtml;
 }
-// function selectLanguage(index) {
-//     return model.inputs.selectDay.movieLanguage[index];
-// }
-// function selectTime(event) {
-//     model.inputs.selectDay.time = event.target.value;
-// }
-//<div>
-//<label for="selecttime">Select your time: </label>
-//<input type="time" id="selectTime" onchange="selectTime(event)"></input>
-//</div>
+function generateLanguageButtons() {
+    let buttonsHtml = '';
+    const movieId = model.inputs.search.movieId;
+    const movie = findMovieById(movieId);
+    for (let i = 0; i < movie.movieLanguage.length; i++) {
+        const language = movie.movieLanguage[i];
+        buttonsHtml += `<button onclick="updateViewOrderPage('${language}', '${model.inputs.selectDay.selectTime}')">${language}</button>`;
+    }
+    return buttonsHtml;
+}
+
+
+function goBackToMovies() {
+    model.app.currentPage = 'search';
+    updateView();
+}
 

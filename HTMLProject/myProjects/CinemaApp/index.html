@@ -22,6 +22,7 @@
     <script src="moviesController.js"></script>
     <script src="selectDateController.js"></script>
     <script src="selectDateView.js"></script>
+    <script src="orderPageView.js"></script>
 </head>
 
 <body>
@@ -33,7 +34,7 @@
         function updateView() {
             if (model.app.currentPage == 'search') updateViewMovies();
             else if (model.app.currentPage == 'selectDate') updateViewSelectDate();
-        //     else if (model.app.currentPage == 'orderPage') updateViewOrderpage();
+             else if (model.app.currentPage == 'orderPage') updateViewOrderPage();
         //     else if (model.app.currentPage == 'paymentPage') updateViewPaymentPage();
         //     else updateView();
         }
