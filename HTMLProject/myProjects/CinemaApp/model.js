@@ -14,14 +14,14 @@ const model = {
             movieId: null,
             day: null,
             movieLanguage: '',
-            selectTime: '',
+            selectTime: null,
         },
         orderpage: {
             movieId: null,
             ticketsAmount: null,
-            selectSittingPlace: 'rad 1, plass 9',
+            selectSittingPlace: false,
             email: '',
-            paymentMethod: 'vipps'
+            paymentMethod: ''
         },
         paymentPage: {
             code: '',

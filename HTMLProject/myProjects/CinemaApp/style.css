@@ -1,0 +1,27 @@
+.movie {
+    display: flex;
+    gap: 10px;
+    background-color: rgb(43, 44, 59);
+    margin: 20px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+div.selectSeats {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: grey;
+
+}
+body {
+    background-color:#1c1b29;
+}
+h1 {
+    color: whitesmoke;
+}
+div {
+    color: whitesmoke;
+    text-align: center;
+    font-family: arial;
+}
