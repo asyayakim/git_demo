@@ -12,7 +12,9 @@ const model = {
         },
         selectDay: {
             movieId: null,
-            day: null,
+            day: [
+                {date: null, weekday: null, month: null},
+            ],
             movieLanguage: '',
             selectTime: null,
         },

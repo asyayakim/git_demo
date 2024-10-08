@@ -22,31 +22,99 @@ function updateViewOrderPage(movieLanguage, selectTime) {
             <button name='ticketsAmount-' type='button' onclick='selectTicketsAmount("ticketsAmount-");'>-</button>
             ${ticketsAmount}
         </div>
-        <div id='selectSeats'>
+        <div id='container'>
             <b>Select Seats:</b> <br/>
-            <input type="checkbox">Seat 1<br/>
-            <input type="checkbox">Seat 2<br/>
-            <input type="checkbox">Seat 3<br/>
+            <div class= 'row'>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            </div>
+            <div class= 'row'>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            </div>
+            <div class= 'row'>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            </div>
+            <div class= 'row'>
+            <div class='seat'></div>
+            <div class='seat occupied'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            <div class='seat'></div>
+            </div>
+            <div id="screen">  </div>
+            <div class= 'row'>
+             <span id="selectedCount">- 0</span>
+            </div>
+
         </div>
         <button onclick="goBackToSelectedMovie()">Back to movies</button>
     `;
+    selectedSeatsCount = document.querySelectorAll('.seat.selected').length;
+    updateSelectedCount();
+    selectSeats();
 }
-let ticketsAmount = 0;
+let ticketsAmount = 2;
+let selectedSeatsCount = 0;
 function selectTicketsAmount(action) {
     if (action == 'ticketsAmount+') {
         ticketsAmount++;
     } else if (action == 'ticketsAmount-') {
         ticketsAmount--;
-        if (ticketsAmount < 0) {
-            ticketsAmount = 0;
+        if (ticketsAmount < 1) {
+            ticketsAmount = 1;
         }
     }
     model.inputs.orderpage.ticketsAmount = ticketsAmount;
     updateView();
 }
-function selectSeats() {
-
+function updateSelectedCount() {
+    const selectedCount = document.getElementById('selectedCount');
+    selectedCount.textContent = selectedSeatsCount;
 }
+
+function selectSeats() {
+    const seats = document.querySelectorAll('.row .seat:not(.occupied)');
+    seats.forEach(seat => {
+        seat.addEventListener('click', () => {
+            if (seat.classList.contains('selected')) {
+                seat.classList.remove('selected');
+                selectedSeatsCount--;
+            } else {
+                if (selectedSeatsCount < ticketsAmount) {
+                    seat.classList.add('selected');
+                    selectedSeatsCount++;
+                } else {
+                    alert(`You can only select ${ticketsAmount} seats.`);
+                }
+            }
+            updateSelectedCount();
+        });
+    });
+}
+selectSeats();
 function goBackToSelectedMovie() {
     model.app.currentPage = 'selectDate';
     resetSelectedData();
