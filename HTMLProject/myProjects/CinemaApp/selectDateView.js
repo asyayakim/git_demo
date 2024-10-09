@@ -12,7 +12,7 @@ function updateViewSelectDate() {
             Directed by: ${movie.director}
         </div>
         <div id="selectSchedule">
-            <label for="selectDateBox">Choose a movie time:</label>
+            <div id="selectedDateDisplay"></div>
             <div id="selectDateBox" onchange="selectDate(event)">
             </div>
         </div>
@@ -29,18 +29,42 @@ function updateViewSelectDate() {
     <div>
     <button onclick="goBackToMovies()">Back to movies</button>
     `;
+
     generateLanguageButtons();
+    updateSelectedDateDisplay();
     generateSchedule(new Date());
 }
 
-function selectDate(event) {
+function selectDate(event) { 
+    if (!model.inputs.selectDay) {
+        model.inputs.selectDay = {};
+    }
     const selectedDate = event.currentTarget.dataset.date;
     console.log('Button clicked:', selectedDate);
-    model.inputs.selectDate = selectedDate;
+    model.inputs.selectDay.day = selectedDate;
 
     const allButtons = document.querySelectorAll('.date-box');
     allButtons.forEach(button => button.classList.remove('selected'));
     event.target.classList.add('selected');
+    
+    updateSelectedDateDisplay();
+}
+
+function updateSelectedDateDisplay() {
+    const selectedDateDiv = document.getElementById('selectedDateDisplay');
+    if (selectedDateDiv) { 
+        const selectedDate = new Date(model.inputs.selectDay.day);  // Get the stored date
+
+        const day = selectedDate.getDate();
+        const weekday = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
+        const month = selectedDate.toLocaleDateString('en-US', { month: 'long' });
+
+        selectedDateDiv.innerHTML = `
+            <b>Selected Date:</b> ${weekday}, ${month} ${day}
+        `;
+    } else {
+        console.error('Element with id "selectedDateDisplay" not found.');
+    }
 }
 
 function generateSchedule(startDate) {
@@ -64,7 +88,6 @@ function generateSchedule(startDate) {
         `;
         dateButton.setAttribute('data-date', date.toISOString());
         dateButton.addEventListener('click', selectDate);
-
         
         scheduleDiv.appendChild(dateButton);
     }
@@ -74,29 +97,48 @@ function generateTimeButtons() {
     let buttonsHtml = '';
     for (let i = 0; i < model.movieShowTime.length; i++) {
         const time = model.movieShowTime[i];
-        buttonsHtml += `<button onclick="updateViewOrderPage('${model.inputs.selectDay.movieLanguage}', '${time}')">${time}</button>`;
+        buttonsHtml += `<button class='timeButton' onclick="selectTime('${time}')">${time}</button>`;
     }
     return buttonsHtml;
 }
+function selectTime(time) {
+    model.inputs.selectDay.selectTime = time;
+    updateViewOrderPage();
+}
+
 function generateLanguageButtons() {
     let buttonsHtml = '';
     const movieId = model.inputs.search.movieId;
     const movie = findMovieById(movieId);
-    for (let i = 0; i < movie.movieLanguage.length; i++) {
-        const language = movie.movieLanguage[i];
-        buttonsHtml += `<div class='language' onclick="filterOrderPage('${language}', '${model.inputs.selectDay.selectTime}')">${language}</div>`;
+
+    if (movie && movie.movieLanguage) {
+        for (let i = 0; i < movie.movieLanguage.length; i++) {
+            const language = movie.movieLanguage[i];
+            buttonsHtml += `<div class='language'>${language}</div>`;
+        }
+    } else {
+        buttonsHtml = '<div>No languages available</div>';
     }
+
     document.getElementById('selectLanguage').innerHTML = buttonsHtml;
+
     const languageButtons = document.querySelectorAll('.language');
     languageButtons.forEach(button => {
-      button.addEventListener('click', selectLanguageButton);
+        button.addEventListener('click', selectLanguageButton);
     });
 }
 function selectLanguageButton(event) {
+    const selectedLanguage = event.target.textContent;
+    console.log("Selected Language:", selectedLanguage); 
+    model.inputs.selectDay.movieLanguage = selectedLanguage;
+    console.log("Stored check", model.inputs.selectDay.movieLanguage);
+   
     const allButtons = document.querySelectorAll('.language');
     allButtons.forEach(button => button.classList.remove('selected'));
+
     event.target.classList.add('selected');
 }
+
 function filterOrderPage() {
     //filter order page by language
 }

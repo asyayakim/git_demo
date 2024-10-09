@@ -83,7 +83,21 @@ div.language {
     background-color: rgb(36, 35, 45);
     cursor: pointer;
     pointer-events: auto;
-    
+}
+button.timeButton {
+    margin: 5px;
+    border: 1px solid #4f4f4f;
+    padding: 10px;
+    text-align: center;
+    height: 60px;
+    width: 70px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: rgb(36, 35, 45);
+    cursor: pointer;
+    pointer-events: auto;
+    color: whitesmoke;
+    font-size: 1.1em;
 }
 .language.selected {
     border-color: #accae9;

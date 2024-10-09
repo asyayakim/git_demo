@@ -1,9 +1,11 @@
-function updateViewOrderPage(movieLanguage, selectTime) {
+function updateViewOrderPage() {
+    console.log("Stored in model:", model.inputs.selectDay.movieLanguage);
     model.app.currentPage = 'orderPage';
     const movieId = model.inputs.search.movieId;
-    model.inputs.selectDay.movieLanguage = movieLanguage;
-    model.inputs.selectDay.selectTime = selectTime;
+    const movieLanguage= model.inputs.selectDay.movieLanguage;
+    const selectTime =model.inputs.selectDay.selectTime;
     const movie = findMovieById(movieId);
+    
 
     document.getElementById('app').innerHTML = /*HTML*/`
         <h1>Place Selrction for ${movie.title}</h1>
@@ -13,14 +15,16 @@ function updateViewOrderPage(movieLanguage, selectTime) {
             ${movie.year}<br/>
             ${movie.genre}<br/>
             Directed by: ${movie.director}<br/>
-            <b>Selected Date:</b> ${model.inputs.selectDay.day}<br/>
-            <b>Selected Language:</b> ${model.inputs.selectDay.movieLanguage}<br/>
-            <b>Selected Time:</b> ${model.inputs.selectDay.selectTime}<br/>
+            <b>Selected Date:</b> ${new Date(model.inputs.selectDay.day).toLocaleDateString()}<br/>
+            <b>Selected Language:</b> ${movieLanguage}
+            <br/>
+            <b>Selected Time:</b> ${selectTime}<br/>
             <div>
             <label for="selectTicketsAmount">Select Tickets Amount: </label>
             <button name='ticketsAmount+' type='button' onclick='selectTicketsAmount("ticketsAmount+");'>+</button>
             <button name='ticketsAmount-' type='button' onclick='selectTicketsAmount("ticketsAmount-");'>-</button>
             ${ticketsAmount}
+            
         </div>
         <div id='container'>
             <b>Select Seats:</b> <br/>
