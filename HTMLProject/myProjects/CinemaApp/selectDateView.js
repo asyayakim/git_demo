@@ -53,7 +53,7 @@ function selectDate(event) {
 function updateSelectedDateDisplay() {
     const selectedDateDiv = document.getElementById('selectedDateDisplay');
     if (selectedDateDiv) { 
-        const selectedDate = new Date(model.inputs.selectDay.day);  // Get the stored date
+        const selectedDate = model.inputs.selectDay.day ? new Date(model.inputs.selectDay.day) : new Date();
 
         const day = selectedDate.getDate();
         const weekday = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
@@ -71,6 +71,7 @@ function generateSchedule(startDate) {
     const scheduleDiv = document.getElementById('selectDateBox');
     scheduleDiv.innerHTML = '';
     scheduleDiv.classList.add('schedule');
+    const today = new Date();
 
     for (let i = 0; i < 7; i++) {
         const date = new Date(startDate);
@@ -87,12 +88,16 @@ function generateSchedule(startDate) {
             <div class="month">${month}</div>
         `;
         dateButton.setAttribute('data-date', date.toISOString());
+        if (date.toDateString() === today.toDateString()) {
+            dateButton.classList.add('selected');
+            model.inputs.selectDay.day = date.toISOString();
+        }
         dateButton.addEventListener('click', selectDate);
         
         scheduleDiv.appendChild(dateButton);
     }
 }
-
+updateSelectedDateDisplay();
 function generateTimeButtons() {
     let buttonsHtml = '';
     for (let i = 0; i < model.movieShowTime.length; i++) {
@@ -114,7 +119,11 @@ function generateLanguageButtons() {
     if (movie && movie.movieLanguage) {
         for (let i = 0; i < movie.movieLanguage.length; i++) {
             const language = movie.movieLanguage[i];
-            buttonsHtml += `<div class='language'>${language}</div>`;
+            const selectedClass = i === 0 ? 'selected' : '';
+            buttonsHtml += `<div class='language ${selectedClass}'>${language}</div>`;
+            if (i === 0) {
+                model.inputs.selectDay.movieLanguage = language;
+            }
         }
     } else {
         buttonsHtml = '<div>No languages available</div>';
@@ -138,6 +147,7 @@ function selectLanguageButton(event) {
 
     event.target.classList.add('selected');
 }
+generateLanguageButtons();
 
 function filterOrderPage() {
     //filter order page by language

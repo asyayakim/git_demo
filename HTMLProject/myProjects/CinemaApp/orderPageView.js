@@ -52,8 +52,8 @@ function updateViewOrderPage() {
             <div class='seat'></div>
             <div class='seat'></div>
             <div class='seat'></div>
-            <div class='seat'></div>
-            <div class='seat'></div>
+            <div class='seat selected'></div>
+            <div class='seat selected'></div>
             <div class='seat'></div>
             <div class='seat'></div>
             <div class='seat'></div>
@@ -71,8 +71,10 @@ function updateViewOrderPage() {
             <div id="screen">  </div>
             <div class= 'row'>
              <span id="selectedCount">- 0</span>
-            </div>
-
+        </div>
+        </div>
+        <div id='confirmOrder'>
+        <div id='totalPrice'>Total Price: $${totalPrice}</div>
         </div>
         <button onclick="goBackToSelectedMovie()">Back to movies</button>
     `;
@@ -80,11 +82,20 @@ function updateViewOrderPage() {
     updateSelectedCount();
     selectSeats();
 }
+let totalPrice = 200;
+let selectedSeatsCount = 2;
 let ticketsAmount = 2;
-let selectedSeatsCount = 0;
+function totalPriceForOrder() {
+    ticketsAmount = model.inputs.orderpage.ticketsAmount;
+    totalPrice = ticketsAmount * 100;
+    document.getElementById('totalPrice').textContent = `Total Price: $${totalPrice}`;
+    model.inputs.orderpage.totalPrice = totalPrice;
+}
 function selectTicketsAmount(action) {
+    let html = '';
     if (action == 'ticketsAmount+') {
         ticketsAmount++;
+
     } else if (action == 'ticketsAmount-') {
         ticketsAmount--;
         if (ticketsAmount < 1) {
@@ -92,8 +103,11 @@ function selectTicketsAmount(action) {
         }
     }
     model.inputs.orderpage.ticketsAmount = ticketsAmount;
-    updateView();
+    totalPriceForOrder();
+
+    updateViewOrderPage()
 }
+
 function updateSelectedCount() {
     const selectedCount = document.getElementById('selectedCount');
     selectedCount.textContent = selectedSeatsCount;
@@ -101,6 +115,7 @@ function updateSelectedCount() {
 
 function selectSeats() {
     const seats = document.querySelectorAll('.row .seat:not(.occupied)');
+   
     seats.forEach(seat => {
         seat.addEventListener('click', () => {
             if (seat.classList.contains('selected')) {

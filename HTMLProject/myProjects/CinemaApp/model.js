@@ -19,7 +19,7 @@ const model = {
         orderpage: {
             movieId: null,
             ticketsAmount: null,
-            selectSittingPlace: false,
+            selectSittingPlace: null,
             email: '',
             paymentMethod: ''
         },
