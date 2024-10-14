@@ -128,7 +128,6 @@ function generateLanguageButtons() {
     } else {
         buttonsHtml = '<div>No languages available</div>';
     }
-
     document.getElementById('selectLanguage').innerHTML = buttonsHtml;
 
     const languageButtons = document.querySelectorAll('.language');

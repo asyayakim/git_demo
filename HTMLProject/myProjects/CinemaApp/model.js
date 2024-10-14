@@ -15,6 +15,10 @@ const model = {
             day: null,
             movieLanguage: '',
             selectTime: null,
+            dateSpecialFormat: [
+                { weekday: '', mounth: '', day: '' },
+            ]
+            
         },
         orderpage: {
             movieId: null,
@@ -24,8 +28,11 @@ const model = {
             paymentMethod: ''
         },
         paymentPage: {
-            code: '',
+            secretCode: '',
             bankCardDetails: '',
+            cardHolderName: '',
+            cardHolderSurname: '',
+            cardHolderEmail: '',
         }
     },
 
@@ -104,4 +111,6 @@ const model = {
     movieShowTime: [
         '10:00', '12:00', '14:00', '16:00', 
     ],
+   
+    
 };

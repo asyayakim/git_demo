@@ -15,7 +15,7 @@ function updateViewOrderPage() {
             ${movie.year}<br/>
             ${movie.genre}<br/>
             Directed by: ${movie.director}<br/>
-            <b>Selected Date:</b> ${new Date(model.inputs.selectDay.day).toLocaleDateString()}<br/>
+            <div id="selectedDateDisplay"></div>
             <b>Selected Language:</b> ${movieLanguage}
             <br/>
             <b>Selected Time:</b> ${selectTime}<br/>
@@ -77,10 +77,12 @@ function updateViewOrderPage() {
         <div id='totalPrice'>Total Price: $${totalPrice}</div>
         </div>
         <button onclick="goBackToSelectedMovie()">Back to movies</button>
+        <button onclick="updateViewPaymentPage()">Continue to payment</button>
     `;
     selectedSeatsCount = document.querySelectorAll('.seat.selected').length;
     updateSelectedCount();
     selectSeats();
+    updateSelectedDateDisplay();
 }
 let totalPrice = 200;
 let selectedSeatsCount = 2;

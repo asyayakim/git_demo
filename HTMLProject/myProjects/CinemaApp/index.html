@@ -15,6 +15,7 @@
     <script src="selectDateController.js"></script>
     <script src="selectDateView.js"></script>
     <script src="orderPageView.js"></script>
+    <script src="paymentPage.js"></script>
 </head>
 
 <body>
@@ -27,8 +28,8 @@
             if (model.app.currentPage == 'search') updateViewMovies();
             else if (model.app.currentPage == 'selectDate') updateViewSelectDate();
              else if (model.app.currentPage == 'orderPage') updateViewOrderPage();
-        //     else if (model.app.currentPage == 'paymentPage') updateViewPaymentPage();
-        //     else updateView();
+             else if (model.app.currentPage == 'paymentPage') updateViewPaymentPage();
+            else updateView();
         }
     </script>
 </body>
