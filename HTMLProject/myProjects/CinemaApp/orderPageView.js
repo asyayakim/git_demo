@@ -82,7 +82,6 @@ function updateViewOrderPage() {
     selectedSeatsCount = document.querySelectorAll('.seat.selected').length;
     updateSelectedCount();
     selectSeats();
-    updateSelectedDateDisplay();
 }
 let totalPrice = 200;
 let selectedSeatsCount = 2;
@@ -94,19 +93,19 @@ function totalPriceForOrder() {
     model.inputs.orderpage.totalPrice = totalPrice;
 }
 function selectTicketsAmount(action) {
-    let html = '';
     if (action == 'ticketsAmount+') {
         ticketsAmount++;
+        selectSeats(ticketsAmount);
 
     } else if (action == 'ticketsAmount-') {
         ticketsAmount--;
         if (ticketsAmount < 1) {
             ticketsAmount = 1;
+            selectSeats(ticketsAmount);
         }
     }
     model.inputs.orderpage.ticketsAmount = ticketsAmount;
     totalPriceForOrder();
-
     updateViewOrderPage()
 }
 
@@ -115,27 +114,29 @@ function updateSelectedCount() {
     selectedCount.textContent = selectedSeatsCount;
 }
 
-function selectSeats() {
+function selectSeats(ticketsAmount) {
     const seats = document.querySelectorAll('.row .seat:not(.occupied)');
-   
-    seats.forEach(seat => {
-        seat.addEventListener('click', () => {
-            if (seat.classList.contains('selected')) {
-                seat.classList.remove('selected');
-                selectedSeatsCount--;
-            } else {
-                if (selectedSeatsCount < ticketsAmount) {
-                    seat.classList.add('selected');
-                    selectedSeatsCount++;
-                } else {
-                    alert(`You can only select ${ticketsAmount} seats.`);
-                }
-            }
-            updateSelectedCount();
-        });
-    });
 }
-selectSeats();
+
+// function selectSeats() {
+//     const seats = document.querySelectorAll('.row .seat:not(.occupied)');
+//     seats.forEach(seat => {
+//         seat.addEventListener('click', () => {
+//             if (seat.classList.contains('selected')) {
+//                 seat.classList.remove('selected');
+//                 selectedSeatsCount--;
+//             } else {
+//                 if (selectedSeatsCount < ticketsAmount) {
+//                     seat.classList.add('selected');
+//                     selectedSeatsCount++;
+//                 } else {
+//                     alert(`You can only select ${ticketsAmount} seats.`);
+//                 }
+//             }
+//             updateSelectedCount();
+//         });
+//     });
+// }
 function goBackToSelectedMovie() {
     model.app.currentPage = 'selectDate';
     resetSelectedData();

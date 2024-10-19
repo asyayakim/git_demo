@@ -107,6 +107,11 @@ border-top-right-radius: 10px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
+div.language:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    border:1px solid aqua;
+}
 div.language {
     display: flex;
     gap: 10px;
@@ -120,6 +125,11 @@ div.language {
     background-color: rgb(36, 35, 45);
     cursor: pointer;
     pointer-events: auto;
+}
+button.timeButton:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    border:1px solid aqua;
 }
 button.timeButton {
     margin: 5px;
@@ -140,7 +150,12 @@ button.timeButton {
     border-color: #accae9;
     transform: scale(1.1);
 }
+.date-box:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    border:1px solid aqua;
 
+}
 
 .date-box {
     border: 1px solid #4f4f4f;

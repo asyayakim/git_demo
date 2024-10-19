@@ -29,9 +29,7 @@ function updateViewSelectDate() {
     <div>
     <button onclick="goBackToMovies()">Back to movies</button>
     `;
-
     generateLanguageButtons();
-    updateSelectedDateDisplay();
     generateSchedule(new Date());
 }
 
@@ -52,7 +50,7 @@ function selectDate(event) {
 
 function updateSelectedDateDisplay() {
     const selectedDateDiv = document.getElementById('selectedDateDisplay');
-    if (selectedDateDiv) { 
+    if (selectedDateDiv) {
         const selectedDate = model.inputs.selectDay.day ? new Date(model.inputs.selectDay.day) : new Date();
 
         const day = selectedDate.getDate();
@@ -60,10 +58,8 @@ function updateSelectedDateDisplay() {
         const month = selectedDate.toLocaleDateString('en-US', { month: 'long' });
 
         selectedDateDiv.innerHTML = `
-            <b>Selected Date:</b> ${weekday}, ${month} ${day}
+            <b>Selected Date:</b> ${weekday}, ${month}, ${day}
         `;
-    } else {
-        console.error('Element with id "selectedDateDisplay" not found.');
     }
 }
 
@@ -146,7 +142,6 @@ function selectLanguageButton(event) {
 
     event.target.classList.add('selected');
 }
-generateLanguageButtons();
 
 function filterOrderPage() {
     //filter order page by language

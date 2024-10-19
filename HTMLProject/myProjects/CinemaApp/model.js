@@ -25,7 +25,8 @@ const model = {
             ticketsAmount: null,
             selectSittingPlace: null,
             email: '',
-            paymentMethod: ''
+            paymentMethod: '',
+            totalPrice: 200,
         },
         paymentPage: {
             secretCode: '',
